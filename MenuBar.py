@@ -8,13 +8,15 @@ Version 0.01
 Author: Cameron Owens <cowens@coroware.com>
 
 '''
-class MainMenuBar():
+import sys
+from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
+        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QMenuBar
+#Is there a way to list dependencies for a python application like in ROS?
+
+class MainMenuBar(QMenuBar):
 
     def SetupComponents(self):
         '''Method that creates components attributes of the application'''
-        self.MainStatusBar = QStatusBar() #Creates an attribute from a method. Cool stuff
-        self.setStatusBar(self.MainStatusBar)
-        self.MainStatusBar.showMessage("Welcome!")
         self.CreateMenus()
         self.FileMenuActions()
         self.EditMenuActions()
@@ -47,6 +49,7 @@ class MainMenuBar():
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
         self.infraredMenu.addAction(self.configureInfrared)
         self.cameraMenu.addAction(self.configureCamera)
+        self.RPLidarMenu.addAction(self.configureRPLidar)
         self.additionalSensorsMenu.addAction(self.configureSensor)
         
     def FileMenuActions(self):
@@ -75,7 +78,7 @@ class MainMenuBar():
         self.configureInfrared = QAction('&Configure Infrared', self)
         self.configureCamera = QAction('&Configure Camera', self)
         self.configureSensor = QAction('&Configure Sensor', self)
-        
+        self.configureRPLidar = QAction('&Configure Sensor', self)
     def WindowMenuActions(self):
         '''Methods that define actions available to window menu buttons'''
         
@@ -97,21 +100,21 @@ class MainMenuBar():
     def newFile(self):
         pass
      
-              
+#This section of Code is having issues with the               
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
         self.fileMenu = self.menuBar().addMenu("&File")
-        self.editMenu = self.menuBar().addMenu("&Edit")
-        self.sensorsMenu = self.menuBar().addMenu("&Sensors")
-        self.ultrasonicMenu = self.sensorsMenu.addMenu('Ultrasonic')
-        self.infraredMenu =self.sensorsMenu.addMenu('Infrared')
-        self.cameraMenu = self.sensorsMenu.addMenu('Camera')
-        self.additionalSensorsMenu = self.sensorsMenu.addMenu('Additional Sensor Config')
-        self.windowMenu = self.menuBar().addMenu("&Window")4
-        self.sourceMenu = self.menuBar().addMenu("&Source")
-        self.toolsMenu = self.menuBar().addMenu('&Tools')
-        self.tutorialsMenu = self.menuBar().addMenu('Tutorials')
-        self.helpMenu = self.menuBar().addMenu("&Help")
-        
+#         self.editMenu = self.menuBar().addMenu("&Edit")
+#         self.sensorsMenu = self.menuBar().addMenu("&Sensors")
+#         self.ultrasonicMenu = self.sensorsMenu.addMenu('Ultrasonic')
+#         self.infraredMenu =self.sensorsMenu.addMenu('Infrared')
+#         self.cameraMenu = self.sensorsMenu.addMenu('Camera')
+#         self.additionalSensorsMenu = self.sensorsMenu.addMenu('Additional Sensor Config')
+#         self.windowMenu = self.menuBar().addMenu("&Window")
+#         self.sourceMenu = self.menuBar().addMenu("&Source")
+#         self.toolsMenu = self.menuBar().addMenu('&Tools')
+#         self.tutorialsMenu = self.menuBar().addMenu('Tutorials')
+#         self.helpMenu = self.menuBar().addMenu("&Help")
+#         
 
         

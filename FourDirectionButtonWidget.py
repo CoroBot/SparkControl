@@ -15,4 +15,4 @@ class DirectionalButtons():
         self.East= East
         self.South = South
         self.West = West
-        
+    
