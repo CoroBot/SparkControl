@@ -13,7 +13,7 @@ from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
         QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QMenuBar, QLayout
 #Is there a way to list dependencies for a python application like in ROS?
 
-class MainMenuBar(QMainWindow):
+class MainMenuBar(QMenuBar):
     def SetupComponents(self):
         '''Method that creates components attributes of the application'''
         self.CreateMenus()
@@ -31,7 +31,6 @@ class MainMenuBar(QMainWindow):
         self.fileMenu.addAction(self.openAction)
         self.fileMenu.addAction(self.importAction)
         self.fileMenu.addAction(self.exportAction)
-        self.fileMenu.addAction(self.exitAction)
            
         #Creation of Source Menu Actions
         self.sourceMenu.addAction(self.viewSource)
@@ -102,18 +101,18 @@ class MainMenuBar(QMainWindow):
 #This section of Code is having issues with the               
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
-        self.fileMenu = menuBar().addMenu("&File")
-#         self.editMenu = self.menuBar().addMenu("&Edit")
-#         self.sensorsMenu = self.menuBar().addMenu("&Sensors")
-#         self.ultrasonicMenu = self.sensorsMenu.addMenu('Ultrasonic')
-#         self.infraredMenu =self.sensorsMenu.addMenu('Infrared')
-#         self.cameraMenu = self.sensorsMenu.addMenu('Camera')
-#         self.additionalSensorsMenu = self.sensorsMenu.addMenu('Additional Sensor Config')
-#         self.windowMenu = self.menuBar().addMenu("&Window")
-#         self.sourceMenu = self.menuBar().addMenu("&Source")
-#         self.toolsMenu = self.menuBar().addMenu('&Tools')
-#         self.tutorialsMenu = self.menuBar().addMenu('Tutorials')
-#         self.helpMenu = self.menuBar().addMenu("&Help")
+        self.fileMenu = self.addMenu("&File")
+        self.editMenu = self.addMenu("&Edit")
+        self.sensorsMenu = self.addMenu("&Sensors")
+        self.ultrasonicMenu = self.sensorsMenu.addMenu('Ultrasonic')
+        self.infraredMenu =self.sensorsMenu.addMenu('Infrared')
+        self.cameraMenu = self.sensorsMenu.addMenu('Camera')
+        self.additionalSensorsMenu = self.sensorsMenu.addMenu('Additional Sensor Config')
+        self.windowMenu = self.addMenu("&Window")
+        self.sourceMenu = self.addMenu("&Source")
+        self.toolsMenu = self.addMenu('&Tools')
+        self.tutorialsMenu = self.addMenu('Tutorials')
+        self.helpMenu = self.addMenu("&Help")
 #         
 
         
