@@ -10,11 +10,10 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 import sys
 from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
-        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QMenuBar
+        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QMenuBar, QLayout
 #Is there a way to list dependencies for a python application like in ROS?
 
-class MainMenuBar(QMenuBar):
-
+class MainMenuBar(QMainWindow):
     def SetupComponents(self):
         '''Method that creates components attributes of the application'''
         self.CreateMenus()
@@ -103,7 +102,7 @@ class MainMenuBar(QMenuBar):
 #This section of Code is having issues with the               
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
-        self.fileMenu = self.menuBar().addMenu("&File")
+        self.fileMenu = menuBar().addMenu("&File")
 #         self.editMenu = self.menuBar().addMenu("&Edit")
 #         self.sensorsMenu = self.menuBar().addMenu("&Sensors")
 #         self.ultrasonicMenu = self.sensorsMenu.addMenu('Ultrasonic')

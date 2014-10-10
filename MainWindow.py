@@ -54,7 +54,8 @@ if __name__ == '__main__':
         mainWindow = MainUserWindow()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
-#This is where the code to call the appropriate menubar will exist.
+        SparkMenu = MainMenuBar()
+        SparkMenu.CreateMenus()
         mainWindow.setMenuBar(SparkMenu)
         mainWindow.CenterMethod()
         mainWindow.show()
