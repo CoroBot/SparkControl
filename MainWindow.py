@@ -55,7 +55,7 @@ if __name__ == '__main__':
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
         SparkMenu = MainMenuBar()
-        SparkMenu.CreateMenus()
+        SparkMenu.SetupComponents()
         mainWindow.setMenuBar(SparkMenu)
         mainWindow.CenterMethod()
         mainWindow.show()
