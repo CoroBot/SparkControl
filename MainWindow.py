@@ -9,8 +9,10 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 import sys
 from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
-        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget
-from MenuBar import MainMenuBar        
+        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QPushButton, \
+        QGridLayout
+from MenuBar import MainMenuBar  
+from FourDirectionButtonWidget import DirectionalButtons   
 #Import required modules
 
 
@@ -24,7 +26,8 @@ class MainUserWindow(QMainWindow):
         self.setGeometry(300,300,1080,500) #(x position of center, y position of center, width and height of window)
         self.setMinimumHeight(500)
         self.setMinimumWidth(600)
-        
+        self.driveButtons = DirectionalButtons(self,'Forward','Right','Reverse', 'Left')
+        self.setCentralWidget(self.driveButtons)
     def setIcon(self):
         '''Self Explainatory: Sets the icon for the application'''
         SparkIcon = QIcon('icon.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
@@ -33,7 +36,7 @@ class MainUserWindow(QMainWindow):
     def CenterMethod(self):
         '''Method that centers the application on the computer's main display'''
         #Downside of PySide is there is no self.center method of the widget
-        #For discusson of this please visit the SparkForum/PySideDevelopment
+        #For discussion of this please visit the SparkForum/PySideDevelopment
         qRect=self.frameGeometry()
         centerPoint =QDesktopWidget().availableGeometry().center()
         qRect.moveCenter(centerPoint)
@@ -45,12 +48,16 @@ class MainUserWindow(QMainWindow):
         self.mainStatusBar = QStatusBar()
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
+        
+
 if __name__ == '__main__':
     '''It is best practice to use this type of wrapper to in the event that someone else
     uses your code and has this as an import'''
             # Exception Handling
     try:
         SparkControl = QApplication(sys.argv)
+        #gridLayout = QGridLayout()
+        #gridLayout
         mainWindow = MainUserWindow()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
