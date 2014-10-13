@@ -8,7 +8,7 @@ Version 0.01
 Author: Cameron Owens <cowens@coroware.com>
 
 '''
-from PySide.QtGui import QPushButton, QWidget, QGridLayout
+from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider
         
 class DirectionalButtons(QWidget):
     def __init__(self, parent, North="Up", East="Right", South="Down", West="Left"):
@@ -17,7 +17,6 @@ class DirectionalButtons(QWidget):
         self.East= East
         self.South = South
         self.West = West
-        
         buttonLayout = QGridLayout(self)
         northButton = QPushButton(self.North, self)
 #        northbutton.click(actionscript)
@@ -28,9 +27,14 @@ class DirectionalButtons(QWidget):
         
         westButton = QPushButton(self.West, self)
         
-        buttonLayout.addWidget(northButton, 0, 1)
-        buttonLayout.addWidget(eastButton, 1, 2)
-        buttonLayout.addWidget(westButton, 1, 0)
-        buttonLayout.addWidget(southButton, 2, 1)
+        speedSlider = QSlider()
+        speedSlider.setTickPosition(QSlider.TicksRight)
+        speedSlider.setTickInterval(10)
+        speedSlider.TicksRight
+        buttonLayout.addWidget(northButton, 0, 2)
+        buttonLayout.addWidget(eastButton, 1, 3)
+        buttonLayout.addWidget(westButton, 1, 1)
+        buttonLayout.addWidget(southButton, 2, 2)
+        buttonLayout.addWidget(speedSlider, 0, 0, 3,0)
         
         self.setLayout(buttonLayout)

@@ -1,281 +1,166 @@
 #!/usr/bin/env python
 
-############################################################################
-# 
-#  Copyright (C) 2004-2005 Trolltech AS. All rights reserved.
-# 
-#  This file is part of the example classes of the Qt Toolkit.
-# 
-#  This file may be used under the terms of the GNU General Public
-#  License version 2.0 as published by the Free Software Foundation
-#  and appearing in the file LICENSE.GPL included in the packaging of
-#  this file.  Please review the following information to ensure GNU
-#  General Public Licensing requirements will be met:
-#  http://www.trolltech.com/products/qt/opensource.html
-# 
-#  If you are unsure which license is appropriate for your use, please
-#  review the following information:
-#  http://www.trolltech.com/products/qt/licensing.html or contact the
-#  sales department at sales@trolltech.com.
-# 
-#  This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-#  WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-# 
-############################################################################
-
-# This is only needed for Python v2 but is harmless for Python v3.
-#import sip
-#sip.setapi('QString', 2)
+#############################################################################
+##
+## Copyright (C) 2004-2005 Trolltech AS. All rights reserved.
+##
+## This file is part of the example classes of the Qt Toolkit.
+##
+## This file may be used under the terms of the GNU General Public
+## License version 2.0 as published by the Free Software Foundation
+## and appearing in the file LICENSE.GPL included in the packaging of
+## this file.  Please review the following information to ensure GNU
+## General Public Licensing requirements will be met:
+## http://www.trolltech.com/products/qt/opensource.html
+##
+## If you are unsure which license is appropriate for your use, please
+## review the following information:
+## http://www.trolltech.com/products/qt/licensing.html or contact the
+## sales department at sales@trolltech.com.
+##
+## This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+## WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+##
+#############################################################################
 
 from PySide import QtCore, QtGui
 
 
+class SlidersGroup(QtGui.QGroupBox):
 
-class MainWindow(QtGui.QMainWindow):
+    valueChanged = QtCore.Signal(int)
+
+    def __init__(self, orientation, title, parent=None):
+        super(SlidersGroup, self).__init__(title, parent)
+
+        self.slider = QtGui.QSlider(orientation)
+        self.slider.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.slider.setTickPosition(QtGui.QSlider.TicksBothSides)
+        self.slider.setTickInterval(10)
+        self.slider.setSingleStep(1)
+
+        self.scrollBar = QtGui.QScrollBar(orientation)
+        self.scrollBar.setFocusPolicy(QtCore.Qt.StrongFocus)
+
+        self.dial = QtGui.QDial()
+        self.dial.setFocusPolicy(QtCore.Qt.StrongFocus)
+
+        self.slider.valueChanged.connect(self.scrollBar.setValue)
+        self.scrollBar.valueChanged.connect(self.dial.setValue)
+        self.dial.valueChanged.connect(self.slider.setValue)
+        self.dial.valueChanged.connect(self.valueChanged)
+
+        if orientation == QtCore.Qt.Horizontal:
+            direction = QtGui.QBoxLayout.TopToBottom
+        else:
+            direction = QtGui.QBoxLayout.LeftToRight
+
+        slidersLayout = QtGui.QBoxLayout(direction)
+        slidersLayout.addWidget(self.slider)
+        slidersLayout.addWidget(self.scrollBar)
+        slidersLayout.addWidget(self.dial)
+        self.setLayout(slidersLayout)    
+
+    def setValue(self, value):    
+        self.slider.setValue(value)    
+
+    def setMinimum(self, value):    
+        self.slider.setMinimum(value)
+        self.scrollBar.setMinimum(value)
+        self.dial.setMinimum(value)    
+
+    def setMaximum(self, value):    
+        self.slider.setMaximum(value)
+        self.scrollBar.setMaximum(value)
+        self.dial.setMaximum(value)    
+
+    def invertAppearance(self, invert):
+        self.slider.setInvertedAppearance(invert)
+        self.scrollBar.setInvertedAppearance(invert)
+        self.dial.setInvertedAppearance(invert)    
+
+    def invertKeyBindings(self, invert):
+        self.slider.setInvertedControls(invert)
+        self.scrollBar.setInvertedControls(invert)
+        self.dial.setInvertedControls(invert)
+
+
+class Window(QtGui.QWidget):
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(Window, self).__init__()
 
-        self.textEdit = QtGui.QTextEdit()
-        self.setCentralWidget(self.textEdit)
+        self.horizontalSliders = SlidersGroup(QtCore.Qt.Horizontal,
+                "Horizontal")
+        self.verticalSliders = SlidersGroup(QtCore.Qt.Vertical, "Vertical")
 
-        self.createActions()
-        self.createMenus()
-        self.createToolBars()
-        self.createStatusBar()
-        self.createDockWindows()
+        self.stackedWidget = QtGui.QStackedWidget()
+        self.stackedWidget.addWidget(self.horizontalSliders)
+        self.stackedWidget.addWidget(self.verticalSliders)
 
-        self.setWindowTitle("Dock Widgets")
+        self.createControls("Controls")
 
-        self.newLetter()
-        self.setUnifiedTitleAndToolBarOnMac(True)
+        self.horizontalSliders.valueChanged.connect(self.verticalSliders.setValue)
+        self.verticalSliders.valueChanged.connect(self.valueSpinBox.setValue)
+        self.valueSpinBox.valueChanged.connect(self.horizontalSliders.setValue)
 
-    def newLetter(self):
-        self.textEdit.clear()
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(self.controlsGroup)
+        layout.addWidget(self.stackedWidget)
+        self.setLayout(layout)
 
-        cursor = self.textEdit.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.Start)
-        topFrame = cursor.currentFrame()
-        topFrameFormat = topFrame.frameFormat()
-        topFrameFormat.setPadding(16)
-        topFrame.setFrameFormat(topFrameFormat)
+        self.minimumSpinBox.setValue(0)
+        self.maximumSpinBox.setValue(20)
+        self.valueSpinBox.setValue(5)
 
-        textFormat = QtGui.QTextCharFormat()
-        boldFormat = QtGui.QTextCharFormat()
-        boldFormat.setFontWeight(QtGui.QFont.Bold)
-        italicFormat = QtGui.QTextCharFormat()
-        italicFormat.setFontItalic(True)
+        self.setWindowTitle("Sliders")
 
-        tableFormat = QtGui.QTextTableFormat()
-        tableFormat.setBorder(1)
-        tableFormat.setCellPadding(16)
-        tableFormat.setAlignment(QtCore.Qt.AlignRight)
-        cursor.insertTable(1, 1, tableFormat)
-        cursor.insertText("The Firm", boldFormat)
-        cursor.insertBlock()
-        cursor.insertText("321 City Street", textFormat)
-        cursor.insertBlock()
-        cursor.insertText("Industry Park")
-        cursor.insertBlock()
-        cursor.insertText("Some Country")
-        cursor.setPosition(topFrame.lastPosition())
-        cursor.insertText(QtCore.QDate.currentDate().toString("d MMMM yyyy"),
-                textFormat)
-        cursor.insertBlock()
-        cursor.insertBlock()
-        cursor.insertText("Dear ", textFormat)
-        cursor.insertText("NAME", italicFormat)   
-        cursor.insertText(",", textFormat)
-        for i in range(3):
-            cursor.insertBlock()
-        cursor.insertText("Yours sincerely,", textFormat)
-        for i in range(3):
-            cursor.insertBlock()
-        cursor.insertText("The Boss", textFormat)
-        cursor.insertBlock()
-        cursor.insertText("ADDRESS", italicFormat)  
+    def createControls(self, title):
+        self.controlsGroup = QtGui.QGroupBox(title)
 
-    def print_(self):
-        document = self.textEdit.document()
-        printer = QtGui.QPrinter()
+        minimumLabel = QtGui.QLabel("Minimum value:")
+        maximumLabel = QtGui.QLabel("Maximum value:")
+        valueLabel = QtGui.QLabel("Current value:")
 
-        dlg = QtGui.QPrintDialog(printer, self)
-        if dlg.exec_() != QtGui.QDialog.Accepted:
-            return
+        invertedAppearance = QtGui.QCheckBox("Inverted appearance")
+        invertedKeyBindings = QtGui.QCheckBox("Inverted key bindings")
 
-        document.print_(printer)
+        self.minimumSpinBox = QtGui.QSpinBox()
+        self.minimumSpinBox.setRange(-100, 100)
+        self.minimumSpinBox.setSingleStep(1)
 
-        self.statusBar().showMessage("Ready", 2000)
+        self.maximumSpinBox = QtGui.QSpinBox()
+        self.maximumSpinBox.setRange(-100, 100)
+        self.maximumSpinBox.setSingleStep(1)
 
-    def save(self):
-        filename, filtr = QtGui.QFileDialog.getSaveFileName(self,
-                "Choose a file name", '.', "HTML (*.html *.htm)")
-        if not filename:
-            return
+        self.valueSpinBox = QtGui.QSpinBox()
+        self.valueSpinBox.setRange(-100, 100)
+        self.valueSpinBox.setSingleStep(1)
 
-        file = QtCore.QFile(filename)
-        if not file.open(QtCore.QFile.WriteOnly | QtCore.QFile.Text):
-            QtGui.QMessageBox.warning(self, "Dock Widgets",
-                    "Cannot write file %s:\n%s." % (filename, file.errorString()))
-            return
+        orientationCombo = QtGui.QComboBox()
+        orientationCombo.addItem("Horizontal slider-like widgets")
+        orientationCombo.addItem("Vertical slider-like widgets")
 
-        out = QtCore.QTextStream(file)
-        QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        out << self.textEdit.toHtml()
-        QtGui.QApplication.restoreOverrideCursor()
+        orientationCombo.activated[int].connect(self.stackedWidget.setCurrentIndex)
+        self.minimumSpinBox.valueChanged.connect(self.horizontalSliders.setMinimum)
+        self.minimumSpinBox.valueChanged.connect(self.verticalSliders.setMinimum)
+        self.maximumSpinBox.valueChanged.connect(self.horizontalSliders.setMaximum)
+        self.maximumSpinBox.valueChanged.connect(self.verticalSliders.setMaximum)
+        invertedAppearance.toggled.connect(self.horizontalSliders.invertAppearance)
+        invertedAppearance.toggled.connect(self.verticalSliders.invertAppearance)
+        invertedKeyBindings.toggled.connect(self.horizontalSliders.invertKeyBindings)
+        invertedKeyBindings.toggled.connect(self.verticalSliders.invertKeyBindings)
 
-        self.statusBar().showMessage("Saved '%s'" % filename, 2000)
-
-    def undo(self):
-        document = self.textEdit.document()
-        document.undo()
-
-    def insertCustomer(self, customer):
-        if not customer:
-            return
-        customerList = customer.split(', ')
-        document = self.textEdit.document()
-        cursor = document.find('NAME')
-        if not cursor.isNull():
-            cursor.beginEditBlock()
-            cursor.insertText(customerList[0])
-            oldcursor = cursor
-            cursor = document.find('ADDRESS')
-            if not cursor.isNull():
-                for i in customerList[1:]:
-                    cursor.insertBlock()
-                    cursor.insertText(i)
-                cursor.endEditBlock()
-            else:
-                oldcursor.endEditBlock()
-
-    def addParagraph(self, paragraph):
-        if not paragraph:
-            return
-        document = self.textEdit.document()
-        cursor = document.find("Yours sincerely,")
-        if cursor.isNull():
-            return
-        cursor.beginEditBlock()
-        cursor.movePosition(QtGui.QTextCursor.PreviousBlock,
-                QtGui.QTextCursor.MoveAnchor, 2)
-        cursor.insertBlock()
-        cursor.insertText(paragraph)
-        cursor.insertBlock()
-        cursor.endEditBlock()
-
-    def about(self):
-        QtGui.QMessageBox.about(self, "About Dock Widgets",
-                "The <b>Dock Widgets</b> example demonstrates how to use "
-                "Qt's dock widgets. You can enter your own text, click a "
-                "customer to add a customer name and address, and click "
-                "standard paragraphs to add them.")
-
-    def createActions(self):
-        self.newLetterAct = QtGui.QAction(QtGui.QIcon(':/images/new.png'), "&New Letter", self)
-        self.newLetterAct.setShortcut(QtGui.QKeySequence.New)
-        self.newLetterAct.setStatusTip("Create a new form letter")
-        self.newLetterAct.triggered.connect(self.newLetter)
-
-        self.saveAct = QtGui.QAction(QtGui.QIcon(':/images/save.png'), "&Save...", self)
-        self.saveAct.setShortcut(QtGui.QKeySequence.Save)
-        self.saveAct.setStatusTip("Save the current form letter")
-        self.saveAct.triggered.connect(self.save)
-
-        self.printAct = QtGui.QAction(QtGui.QIcon(':/images/print.png'), "&Print...", self)
-        self.printAct.setShortcut(QtGui.QKeySequence.Print)
-        self.printAct.setStatusTip("Print the current form letter")
-        self.printAct.triggered.connect(self.print_)
-
-        self.undoAct = QtGui.QAction(QtGui.QIcon(':/images/undo.png'), "&Undo", self)
-        self.undoAct.setShortcut(QtGui.QKeySequence.Undo)
-        self.undoAct.setStatusTip("Undo the last editing action")
-        self.undoAct.triggered.connect(self.undo)
-
-        self.quitAct = QtGui.QAction("&Quit", self)
-        self.quitAct.setShortcut("Ctrl+Q")
-        self.quitAct.setStatusTip("Quit the application")
-        self.quitAct.triggered.connect(self.close)
-
-        self.aboutAct = QtGui.QAction("&About", self)
-        self.aboutAct.setStatusTip("Show the application's About box")
-        self.aboutAct.triggered.connect(self.about)
-
-        self.aboutQtAct = QtGui.QAction("About &Qt", self)
-        self.aboutQtAct.setStatusTip("Show the Qt library's About box")
-        self.aboutQtAct.triggered.connect(QtGui.qApp.aboutQt)
-
-    def createMenus(self):
-        self.fileMenu = self.menuBar().addMenu("&File")
-        self.fileMenu.addAction(self.newLetterAct)
-        self.fileMenu.addAction(self.saveAct)
-        self.fileMenu.addAction(self.printAct)
-        self.fileMenu.addSeparator()
-        self.fileMenu.addAction(self.quitAct)
-
-        self.editMenu = self.menuBar().addMenu("&Edit")
-        self.editMenu.addAction(self.undoAct)
-
-        self.viewMenu = self.menuBar().addMenu("&View")
-
-        self.menuBar().addSeparator()
-
-        self.helpMenu = self.menuBar().addMenu("&Help")
-        self.helpMenu.addAction(self.aboutAct)
-        self.helpMenu.addAction(self.aboutQtAct)
-
-    def createToolBars(self):
-        self.fileToolBar = self.addToolBar("File")
-        self.fileToolBar.addAction(self.newLetterAct)
-        self.fileToolBar.addAction(self.saveAct)
-        self.fileToolBar.addAction(self.printAct)
-
-        self.editToolBar = self.addToolBar("Edit")
-        self.editToolBar.addAction(self.undoAct)
-
-    def createStatusBar(self):
-        self.statusBar().showMessage("Ready")
-
-    def createDockWindows(self):
-        dock = QtGui.QDockWidget("Customers", self)
-        dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
-        self.customerList = QtGui.QListWidget(dock)
-        self.customerList.addItems((
-            "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton",
-            "Jane Doe, Memorabilia, 23 Watersedge, Beaton",
-            "Tammy Shea, Tiblanka, 38 Sea Views, Carlton",
-            "Tim Sheen, Caraba Gifts, 48 Ocean Way, Deal",
-            "Sol Harvey, Chicos Coffee, 53 New Springs, Eccleston",
-            "Sally Hobart, Tiroli Tea, 67 Long River, Fedula"))
-        dock.setWidget(self.customerList)
-        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, dock)
-        self.viewMenu.addAction(dock.toggleViewAction())
-
-        dock = QtGui.QDockWidget("Paragraphs", self)
-        self.paragraphsList = QtGui.QListWidget(dock)
-        self.paragraphsList.addItems((
-            "Thank you for your payment which we have received today.",
-            "Your order has been dispatched and should be with you within "
-                "28 days.",
-            "We have dispatched those items that were in stock. The rest of "
-                "your order will be dispatched once all the remaining items "
-                "have arrived at our warehouse. No additional shipping "
-                "charges will be made.",
-            "You made a small overpayment (less than $5) which we will keep "
-                "on account for you, or return at your request.",
-            "You made a small underpayment (less than $1), but we have sent "
-                "your order anyway. We'll add this underpayment to your next "
-                "bill.",
-            "Unfortunately you did not send enough money. Please remit an "
-                "additional $. Your order will be dispatched as soon as the "
-                "complete amount has been received.",
-            "You made an overpayment (more than $5). Do you wish to buy more "
-                "items, or should we return the excess to you?"))
-        dock.setWidget(self.paragraphsList)
-        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, dock)
-        self.viewMenu.addAction(dock.toggleViewAction())
-
-        self.customerList.currentTextChanged.connect(self.insertCustomer)
-        self.paragraphsList.currentTextChanged.connect(self.addParagraph)
+        controlsLayout = QtGui.QGridLayout()
+        controlsLayout.addWidget(minimumLabel, 0, 0)
+        controlsLayout.addWidget(maximumLabel, 1, 0)
+        controlsLayout.addWidget(valueLabel, 2, 0)
+        controlsLayout.addWidget(self.minimumSpinBox, 0, 1)
+        controlsLayout.addWidget(self.maximumSpinBox, 1, 1)
+        controlsLayout.addWidget(self.valueSpinBox, 2, 1)
+        controlsLayout.addWidget(invertedAppearance, 0, 2)
+        controlsLayout.addWidget(invertedKeyBindings, 1, 2)
+        controlsLayout.addWidget(orientationCombo, 3, 0, 1, 3)
+        self.controlsGroup.setLayout(controlsLayout)
 
 
 if __name__ == '__main__':
@@ -283,6 +168,6 @@ if __name__ == '__main__':
     import sys
 
     app = QtGui.QApplication(sys.argv)
-    mainWin = MainWindow()
-    mainWin.show()
+    window = Window()
+    window.show()
     sys.exit(app.exec_())

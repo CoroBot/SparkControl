@@ -22,6 +22,7 @@ class MainUserWindow(QMainWindow):
     
     #Constructor Function
     def __init__(self):
+        '''Initialization of the Object creates a window with provided dimensions and constraints'''
         QMainWindow.__init__(self)
         self.setWindowTitle("Spark Control: Python")
         self.setGeometry(300,300,1080,500) #(x position of center, y position of center, width and height of window)
@@ -49,7 +50,10 @@ class MainUserWindow(QMainWindow):
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
 
-    def CreateDockWindows(self):
+    def CreateDockWidgets(self):
+        '''Method creates the dockable widgets within the window. Within this method is a description
+        of the actual widgets being created; instances of button panels and etc.'''
+        
         dock = QDockWidget('Motion Control', self)
         dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         
@@ -61,6 +65,19 @@ class MainUserWindow(QMainWindow):
         self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right')
         dock.setWidget(self.cameraButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
+        
+        dock = QDockWidget('Sensor Control', self)
+        self.SensorControlButtons = DirectionalButtons(self)
+        dock.setWidget(self.SensorControlButtons)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
+        
+    def CentralWidget(self):
+        '''Method that defines the Central Widget Contents'''
+        #PlaceHolder Widget
+        self.textEdit = QTextEdit()
+        self.setCentralWidget(self.textEdit)    
+        
+        
 if __name__ == '__main__':
     '''It is best practice to use this type of wrapper to in the event that someone else
     uses your code and has this as an import'''
@@ -68,7 +85,8 @@ if __name__ == '__main__':
     try:
         SparkControl = QApplication(sys.argv)
         mainWindow = MainUserWindow()
-        mainWindow.CreateDockWindows()
+        mainWindow.CentralWidget()
+        mainWindow.CreateDockWidgets()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
         SparkMenu = MainMenuBar()
