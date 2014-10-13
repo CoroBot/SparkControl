@@ -8,9 +8,10 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 import sys
+from PySide import QtCore
 from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
         QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QPushButton, \
-        QGridLayout
+        QGridLayout, QDockWidget
 from MenuBar import MainMenuBar  
 from FourDirectionButtonWidget import DirectionalButtons   
 #Import required modules
@@ -26,8 +27,7 @@ class MainUserWindow(QMainWindow):
         self.setGeometry(300,300,1080,500) #(x position of center, y position of center, width and height of window)
         self.setMinimumHeight(500)
         self.setMinimumWidth(600)
-        self.driveButtons = DirectionalButtons(self,'Forward','Right','Reverse', 'Left')
-        self.setCentralWidget(self.driveButtons)
+        
     def setIcon(self):
         '''Self Explainatory: Sets the icon for the application'''
         SparkIcon = QIcon('icon.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
@@ -48,17 +48,27 @@ class MainUserWindow(QMainWindow):
         self.mainStatusBar = QStatusBar()
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
-        
 
+    def CreateDockWindows(self):
+        dock = QDockWidget('Motion Control', self)
+        dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        
+        self.driveButtons = DirectionalButtons(self,'Forward', 'Right', 'Reverse', 'Left')
+        dock.setWidget(self.driveButtons)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
+        
+        dock =QDockWidget('Camera Control', self)
+        self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right')
+        dock.setWidget(self.cameraButtons)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
 if __name__ == '__main__':
     '''It is best practice to use this type of wrapper to in the event that someone else
     uses your code and has this as an import'''
             # Exception Handling
     try:
         SparkControl = QApplication(sys.argv)
-        #gridLayout = QGridLayout()
-        #gridLayout
         mainWindow = MainUserWindow()
+        mainWindow.CreateDockWindows()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
         SparkMenu = MainMenuBar()
