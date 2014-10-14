@@ -13,7 +13,8 @@ from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
         QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QPushButton, \
         QGridLayout, QDockWidget
 from MenuBar import MainMenuBar  
-from FourDirectionButtonWidget import DirectionalButtons   
+from FourDirectionButtonWidget import DirectionalButtons
+from SensorDisplayWidget import DigitalDisplay  
 #Import required modules
 
 
@@ -55,7 +56,7 @@ class MainUserWindow(QMainWindow):
         of the actual widgets being created; instances of button panels and etc.'''
         
         dock = QDockWidget('Motion Control', self)
-        dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
         
         self.driveButtons = DirectionalButtons(self,'Forward', 'Right', 'Reverse', 'Left')
         dock.setWidget(self.driveButtons)
@@ -66,10 +67,27 @@ class MainUserWindow(QMainWindow):
         dock.setWidget(self.cameraButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
-        dock = QDockWidget('Sensor Control', self)
-        self.SensorControlButtons = DirectionalButtons(self)
-        dock.setWidget(self.SensorControlButtons)
+        dock = QDockWidget('Front IR Sensor', self)
+        self.frontInfrarredSensor = DigitalDisplay(self,'Front IR Sensor', 'cm')
+        dock.setWidget(self.frontInfrarredSensor)
         self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
+        
+        dock = QDockWidget('Front Left Ultrasonic Sensor', self)
+        self.frontLeftUltrasonicSensor = DigitalDisplay(self, 'Front Left Ultrasonic', 'cm')
+        dock.setWidget(self.frontLeftUltrasonicSensor)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
+        
+        dock = QDockWidget('Front Right Ultrasonic Sensor', self)
+        self.frontRightUltrasonicSensor = DigitalDisplay(self,'Front Right Ultrasonic', 'cm')
+        dock.setWidget(self.frontRightUltrasonicSensor)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
+        
+        dock = QDockWidget('Rear Ultrasonic Sensor', self)
+        self.rearUltrasonicSensor = DigitalDisplay(self, 'Rear Ultrasonic', 'cm')
+        dock.setWidget(self.rearUltrasonicSensor)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
+        
+
         
     def CentralWidget(self):
         '''Method that defines the Central Widget Contents'''

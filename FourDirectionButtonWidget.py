@@ -8,15 +8,16 @@ Version 0.01
 Author: Cameron Owens <cowens@coroware.com>
 
 '''
-from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider
+from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider, QLabel, QSpinBox
         
 class DirectionalButtons(QWidget):
-    def __init__(self, parent, North="Up", East="Right", South="Down", West="Left"):
+    def __init__(self, parent, North="Up", East="Right", South="Down", West="Left",BoxLabel='Power'):
         QWidget.__init__(self)
         self.North = North
         self.East= East
         self.South = South
         self.West = West
+        self.boxLabel = BoxLabel
         buttonLayout = QGridLayout(self)
         northButton = QPushButton(self.North, self)
 #        northbutton.click(actionscript)
@@ -31,10 +32,20 @@ class DirectionalButtons(QWidget):
         speedSlider.setTickPosition(QSlider.TicksRight)
         speedSlider.setTickInterval(10)
         speedSlider.TicksRight
-        buttonLayout.addWidget(northButton, 0, 2)
-        buttonLayout.addWidget(eastButton, 1, 3)
-        buttonLayout.addWidget(westButton, 1, 1)
-        buttonLayout.addWidget(southButton, 2, 2)
-        buttonLayout.addWidget(speedSlider, 0, 0, 3,0)
+        sliderPosition = QSpinBox()
+        sliderPosition.setRange(0,101)
+        sliderLabel = QLabel(self.boxLabel)
+        speedSlider.valueChanged.connect(sliderPosition.setValue)
+        sliderPosition.valueChanged.connect(speedSlider.setValue)
+        
+        
+        ##Needs work to fix the layout issues......
+        buttonLayout.addWidget(northButton, 1, 1)
+        buttonLayout.addWidget(eastButton, 2, 2)
+        buttonLayout.addWidget(westButton, 2, 0)
+        buttonLayout.addWidget(southButton, 3, 1)
+        buttonLayout.addWidget(sliderPosition,1, 3)
+        buttonLayout.addWidget(sliderLabel, 0, 3)
+        buttonLayout.addWidget(speedSlider, 2, 3, 3,3)
         
         self.setLayout(buttonLayout)
