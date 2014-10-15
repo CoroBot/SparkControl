@@ -8,7 +8,7 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 import sys
-from PySide import QtCore
+from PySide import QtCore, QtGui
 from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
         QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QPushButton, \
         QGridLayout, QDockWidget
@@ -58,12 +58,12 @@ class MainUserWindow(QMainWindow):
         dock = QDockWidget('Motion Control', self)
         dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
         
-        self.driveButtons = DirectionalButtons(self,'Forward', 'Right', 'Reverse', 'Left')
+        self.driveButtons = DirectionalButtons(self,'Forward', 'Right', 'Reverse', 'Left', 'Duty Cycle')
         dock.setWidget(self.driveButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
         dock =QDockWidget('Camera Control', self)
-        self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right')
+        self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right', 'Sensitivity')
         dock.setWidget(self.cameraButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
@@ -87,13 +87,7 @@ class MainUserWindow(QMainWindow):
         dock.setWidget(self.rearUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
         
-
-        
-    def CentralWidget(self):
-        '''Method that defines the Central Widget Contents'''
-        #PlaceHolder Widget
-        self.textEdit = QTextEdit()
-        self.setCentralWidget(self.textEdit)    
+  
         
         
 if __name__ == '__main__':
@@ -103,7 +97,6 @@ if __name__ == '__main__':
     try:
         SparkControl = QApplication(sys.argv)
         mainWindow = MainUserWindow()
-        mainWindow.CentralWidget()
         mainWindow.CreateDockWidgets()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()

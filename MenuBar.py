@@ -65,19 +65,29 @@ class MainMenuBar(QMenuBar):
         self.helpMenu.addAction(self.askExperts)
           
 ########Creation of Sensor Menus and Actions#############################################
-        self.configureUltrasonic = QAction('&Configure Ultrasonic', self)
+        self.configureUltrasonic = QAction('&Configure Ultrasonic Code', self)
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
-         
-        self.configureInfrared = QAction('&Configure Infrarred', self)
+        self.setUltrasonicUnits = QAction('& Set Units', self)
+        self.ultrasonicMenu.addAction(self.setUltrasonicUnits)
+        
+        self.configureInfrared = QAction('&Configure Infrarred Code', self)
         self.infraredMenu.addAction(self.configureInfrared)
+        self.setInfraredUnits = QAction('& Set Units', self)
+        self.infraredMenu.addAction(self.setInfraredUnits)
          
-        self.configureCamera = QAction('&Configure Camera', self)
+        self.configureCamera = QAction('&Configure Camera Code', self)
         self.cameraMenu.addAction(self.configureCamera)
+        self.setColorMode = QAction('&Set Color Mode', self)
+        self.cameraMenu.addAction(self.setColorMode)
+        self.setCameraResolution = QAction('&Set Camera Resolution', self)
+        self.cameraMenu.addAction(self.setCameraResolution)
          
-        self.configureRPLidar = QAction('Configure RPLidar', self)
+        self.configureRPLidar = QAction('Configure RPLidar Code', self)
         self.RPLidarMenu.addAction(self.configureRPLidar)
+        self.setRPLidarSampleRate = QAction('Set Sample Rate', self)
+        self.RPLidarMenu.addAction(self.setRPLidarSampleRate)
          
-        self.configureSensor = QAction('&Configure New Sensor', self)
+        self.configureSensor = QAction("&Configure New Sensor Code", self)
         self.additionalSensorsMenu.addAction(self.configureSensor)
  
  
@@ -87,7 +97,16 @@ class MainMenuBar(QMenuBar):
          
         self.showHUD = QAction('&Show HUD', self)
         self.windowMenu.addAction(self.showHUD)
-          
+        
+        self.frontLeftUltrasonicDisplay = QAction('FLeft Ultrasonic Sensor Display', self)
+        self.showSensorPanels.addAction(self.frontLeftUltrasonicDisplay)
+        self.frontRightUltrasonicDisplay = QAction('Front Right Ultrasonic Sensor Display', self)
+        self.showSensorPanels.addAction(self.frontRightUltrasonicDisplay)
+        self.frontInfraredDisplay = QAction('Front Infrared Display', self)
+        self.showSensorPanels.addAction(self.frontInfraredDisplay)
+        self.rearUltrasonicDisplay = QAction('Rear Ultrasonic Display', self)
+        self.showSensorPanels.addAction(self.rearUltrasonicDisplay)
+        
 ##### Creation of Tools Menu Options and  Actions
 
 
@@ -116,6 +135,8 @@ class MainMenuBar(QMenuBar):
         self.RPLidarMenu = self.sensorsMenu.addMenu('RPLidar')
         self.additionalSensorsMenu = self.sensorsMenu.addMenu('Additional Sensor Config')
         self.windowMenu = self.addMenu("&Window")
+        self.showSensorPanels = self.windowMenu.addMenu('Sensor Panels')
+        self.showDirectionPanels = self.windowMenu.addMenu('Motion Control Panels')
         self.sourceMenu = self.addMenu("&Source")
         self.toolsMenu = self.addMenu('&Tools')
         self.tutorialsMenu = self.addMenu('Tutorials')
