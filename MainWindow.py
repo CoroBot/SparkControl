@@ -9,22 +9,21 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 import sys
 from PySide import QtCore, QtGui
-from PySide.QtGui import QApplication, QMainWindow, QStatusBar, QTextEdit, \
-        QAction, QIcon, QKeySequence, QMessageBox, QAction, QDesktopWidget, QPushButton, \
-        QGridLayout, QDockWidget
+from code import InteractiveConsole
 from MenuBar import MainMenuBar  
 from FourDirectionButtonWidget import DirectionalButtons
-from SensorDisplayWidget import DigitalDisplay  
+from SensorDisplayWidget import DigitalDisplay
+from UnitRadioButton import UnitRadioWidget
 #Import required modules
 
 
-class MainUserWindow(QMainWindow):
+class MainUserWindow(QtGui.QMainWindow):
     ''' Main User Window Class, to be the "home" for all widgets'''
     
     #Constructor Function
     def __init__(self):
         '''Initialization of the Object creates a window with provided dimensions and constraints'''
-        QMainWindow.__init__(self)
+        QtGui.QMainWindow.__init__(self)
         self.setWindowTitle("Spark Control: Python")
         self.setGeometry(300,300,1080,500) #(x position of center, y position of center, width and height of window)
         self.setMinimumHeight(500)
@@ -32,7 +31,7 @@ class MainUserWindow(QMainWindow):
         
     def setIcon(self):
         '''Self Explainatory: Sets the icon for the application'''
-        SparkIcon = QIcon('icon.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
+        SparkIcon = QtGui.QIcon('icon.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
         self.setWindowIcon(SparkIcon)
         
     def CenterMethod(self):
@@ -40,14 +39,14 @@ class MainUserWindow(QMainWindow):
         #Downside of PySide is there is no self.center method of the widget
         #For discussion of this please visit the SparkForum/PySideDevelopment
         qRect=self.frameGeometry()
-        centerPoint =QDesktopWidget().availableGeometry().center()
+        centerPoint =QtGui.QDesktopWidget().availableGeometry().center()
         qRect.moveCenter(centerPoint)
         self.move(qRect.topLeft())
     
     def CreateStatusBar(self):
         '''Method that creates the status bar. This UI object is used to display general
         information at the bottom of the UI window'''
-        self.mainStatusBar = QStatusBar()
+        self.mainStatusBar = QtGui.QStatusBar()
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
 
@@ -55,34 +54,40 @@ class MainUserWindow(QMainWindow):
         '''Method creates the dockable widgets within the window. Within this method is a description
         of the actual widgets being created; instances of button panels and etc.'''
         
-        dock = QDockWidget('Motion Control', self)
+        dock = QtGui.QDockWidget('Motion Control', self)
         dock.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
         
         self.driveButtons = DirectionalButtons(self,'Forward', 'Right', 'Reverse', 'Left', 'Duty Cycle')
         dock.setWidget(self.driveButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
-        dock =QDockWidget('Camera Control', self)
+        dock =QtGui.QDockWidget('Camera Control', self)
         self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right', 'Sensitivity')
         dock.setWidget(self.cameraButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
-        dock = QDockWidget('Front IR Sensor', self)
+        dock = QtGui.QDockWidget("Units",self)
+        self.unitDisplay = UnitRadioWidget(self)
+        dock.setWidget(self.unitDisplay)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea,dock)
+        
+        
+        dock = QtGui.QDockWidget('Front IR Sensor', self)
         self.frontInfrarredSensor = DigitalDisplay(self,'Front IR Sensor', 'cm')
         dock.setWidget(self.frontInfrarredSensor)
         self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
         
-        dock = QDockWidget('Front Left Ultrasonic Sensor', self)
+        dock = QtGui.QDockWidget('Front Left Ultrasonic Sensor', self)
         self.frontLeftUltrasonicSensor = DigitalDisplay(self, 'Front Left Ultrasonic', 'cm')
         dock.setWidget(self.frontLeftUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
         
-        dock = QDockWidget('Front Right Ultrasonic Sensor', self)
+        dock = QtGui.QDockWidget('Front Right Ultrasonic Sensor', self)
         self.frontRightUltrasonicSensor = DigitalDisplay(self,'Front Right Ultrasonic', 'cm')
         dock.setWidget(self.frontRightUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, dock)
         
-        dock = QDockWidget('Rear Ultrasonic Sensor', self)
+        dock = QtGui.QDockWidget('Rear Ultrasonic Sensor', self)
         self.rearUltrasonicSensor = DigitalDisplay(self, 'Rear Ultrasonic', 'cm')
         dock.setWidget(self.rearUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
@@ -95,7 +100,7 @@ if __name__ == '__main__':
     uses your code and has this as an import'''
             # Exception Handling
     try:
-        SparkControl = QApplication(sys.argv)
+        SparkControl = QtGui.QApplication(sys.argv)
         mainWindow = MainUserWindow()
         mainWindow.CreateDockWidgets()
         mainWindow.setIcon()

@@ -15,6 +15,7 @@ class DigitalDisplay(QtGui.QWidget):
         QtGui.QWidget.__init__(self)
         self.sensor_name = sensor_name
         
+        
         palette = self.palette()
 #         if sensor_value >= x:
 #             palette.setColor(palette.WindowText,QtGui.QColor(0,255,0))
@@ -30,8 +31,8 @@ class DigitalDisplay(QtGui.QWidget):
         self.displayname= QtGui.QLabel(self.sensor_name)
         self.sensordisplay = QtGui.QLCDNumber(self)
         self.sensordisplay.setDigitCount(4)
-        
         self.setPalette(palette)
+        
         
         displayLayout = QtGui.QGridLayout(self)
 #          displayLayout.addWidget(self.displayname, 0, 0)
