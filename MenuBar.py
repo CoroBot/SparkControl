@@ -8,103 +8,104 @@ Version 0.01
 Author: Cameron Owens <cowens@coroware.com>
 
 '''
-from PySide.QtGui import  QIcon, QKeySequence, QAction, QMenuBar
+from PySide import QtCore, QtGui
 #Is there a way to list dependencies for a Python application like in ROS?
 
-class MainMenuBar(QMenuBar):
+class MainMenuBar(QtGui.QMenuBar):
     def SetupComponents(self):
         '''Method that creates components attributes of the application'''
         self.CreateMenus()
 
          
 #######Creation of File Menu and its actions#############################################
-        self.newAction = QAction(QIcon('new.png'), '&New',
-                                  self, shortcut=QKeySequence.New,
+        self.newAction = QtGui.QAction(QtGui.QIcon('new.png'), '&New',
+                                  self, shortcut=QtGui.QKeySequence.New,
                                   statusTip="Create a New File")
         self.fileMenu.addAction(self.newAction)
+        
 
-        self.openAction = QAction(QIcon('open.png'), '&Open', self,
-                                  shortcut = QKeySequence.Open)
+        self.openAction = QtGui.QAction(QtGui.QIcon('open.png'), '&Open', self,
+                                  shortcut = QtGui.QKeySequence.Open)
         self.fileMenu.addAction(self.openAction)
         
-        self.importAction = QAction(QIcon('import.png'), '&Import',
-                                    self)
+        self.importAction = QtGui.QAction(QtGui.QIcon('import.png'), '&Import',
+                                    self, shortcut=QtGui.QKeySequence.fromString('Ctrl+i'))
         self.fileMenu.addAction(self.importAction)
         
-        self.exportAction = QAction(QIcon('export.png'), '&Export', self)
+        self.exportAction = QtGui.QAction(QtGui.QIcon('export.png'), '&Export', self)
         self.fileMenu.addAction(self.exportAction)
         
         
-        self.exitAction = QAction(QIcon('exit.png'), '&Exit', self)
+        self.exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self, shortcut=QtGui.QKeySequence.Quit)
         self.fileMenu.addAction(self.exitAction)   
-        
+        self.connect(self.exitAction, QtCore.SIGNAL("triggered()"),QtGui.qApp, QtCore.SLOT("quit()"))
         
         
 #####  Creation of Source Menu Actions        ########################################
-        self.viewSource = QAction('&View Source', self)
+        self.viewSource = QtGui.QAction('&View Source', self)
         self.sourceMenu.addAction(self.viewSource)
         
-        self.visitGitHub = QAction('&Visit GitHub', self) 
+        self.visitGitHub = QtGui.QAction('&Visit GitHub', self) 
         self.sourceMenu.addAction(self.visitGitHub)
 
-        self.viewAuthors = QAction('&View Authors', self)  
+        self.viewAuthors = QtGui.QAction('&View Authors', self)  
         self.sourceMenu.addAction(self.viewAuthors)
          
 
 #####  Creation of Help Menu & Actions   ############################################  
-        self.welcomeHelp = QAction('&Welcome', self)
+        self.welcomeHelp = QtGui.QAction('&Welcome', self)
         self.helpMenu.addAction(self.welcomeHelp)
          
-        self.viewDocs =QAction('&View Docs', self)
+        self.viewDocs =QtGui.QAction('&View Docs', self)
         self.helpMenu.addAction(self.viewDocs)
          
-        self.viewForum = QAction('View Forum', self)
+        self.viewForum = QtGui.QAction('View Forum', self)
         self.helpMenu.addAction(self.viewForum)
          
-        self.askExperts = QAction('&Ask the Experts', self)
+        self.askExperts = QtGui.QAction('&Ask the Experts', self)
         self.helpMenu.addAction(self.askExperts)
           
 ########Creation of Sensor Menus and Actions#############################################
-        self.configureUltrasonic = QAction('&Configure Ultrasonic Code', self)
+        self.configureUltrasonic = QtGui.QAction('&Configure Ultrasonic Code', self)
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
-        self.setUltrasonicUnits = QAction('& Set Units', self)
+        self.setUltrasonicUnits = QtGui.QAction('& Set Units', self)
         self.ultrasonicMenu.addAction(self.setUltrasonicUnits)
         
-        self.configureInfrared = QAction('&Configure Infrarred Code', self)
+        self.configureInfrared = QtGui.QAction('&Configure Infrarred Code', self)
         self.infraredMenu.addAction(self.configureInfrared)
-        self.setInfraredUnits = QAction('& Set Units', self)
+        self.setInfraredUnits = QtGui.QAction('& Set Units', self)
         self.infraredMenu.addAction(self.setInfraredUnits)
          
-        self.configureCamera = QAction('&Configure Camera Code', self)
+        self.configureCamera = QtGui.QAction('&Configure Camera Code', self)
         self.cameraMenu.addAction(self.configureCamera)
-        self.setColorMode = QAction('&Set Color Mode', self)
+        self.setColorMode = QtGui.QAction('&Set Color Mode', self)
         self.cameraMenu.addAction(self.setColorMode)
-        self.setCameraResolution = QAction('&Set Camera Resolution', self)
+        self.setCameraResolution = QtGui.QAction('&Set Camera Resolution', self)
         self.cameraMenu.addAction(self.setCameraResolution)
          
-        self.configureRPLidar = QAction('Configure RPLidar Code', self)
+        self.configureRPLidar = QtGui.QAction('Configure RPLidar Code', self)
         self.RPLidarMenu.addAction(self.configureRPLidar)
-        self.setRPLidarSampleRate = QAction('Set Sample Rate', self)
+        self.setRPLidarSampleRate = QtGui.QAction('Set Sample Rate', self)
         self.RPLidarMenu.addAction(self.setRPLidarSampleRate)
          
-        self.configureSensor = QAction("&Configure New Sensor Code", self)
+        self.configureSensor = QtGui.QAction("&Configure New Sensor Code", self)
         self.additionalSensorsMenu.addAction(self.configureSensor)
  
  
 # ######  Creation of Window Menu Menus and Actions   ################################
-        self.fullScreen = QAction('&Full Screen', self)
+        self.fullScreen = QtGui.QAction('&Full Screen', self)
         self.windowMenu.addAction(self.fullScreen)
          
-        self.showHUD = QAction('&Show HUD', self)
+        self.showHUD = QtGui.QAction('&Show HUD', self)
         self.windowMenu.addAction(self.showHUD)
         
-        self.frontLeftUltrasonicDisplay = QAction('FLeft Ultrasonic Sensor Display', self)
+        self.frontLeftUltrasonicDisplay = QtGui.QAction('FLeft Ultrasonic Sensor Display', self)
         self.showSensorPanels.addAction(self.frontLeftUltrasonicDisplay)
-        self.frontRightUltrasonicDisplay = QAction('Front Right Ultrasonic Sensor Display', self)
+        self.frontRightUltrasonicDisplay = QtGui.QAction('Front Right Ultrasonic Sensor Display', self)
         self.showSensorPanels.addAction(self.frontRightUltrasonicDisplay)
-        self.frontInfraredDisplay = QAction('Front Infrared Display', self)
+        self.frontInfraredDisplay = QtGui.QAction('Front Infrared Display', self)
         self.showSensorPanels.addAction(self.frontInfraredDisplay)
-        self.rearUltrasonicDisplay = QAction('Rear Ultrasonic Display', self)
+        self.rearUltrasonicDisplay = QtGui.QAction('Rear Ultrasonic Display', self)
         self.showSensorPanels.addAction(self.rearUltrasonicDisplay)
         
 ##### Creation of Tools Menu Options and  Actions
@@ -113,16 +114,22 @@ class MainMenuBar(QMenuBar):
 
 ###### Creation of Tutorials Menu Options and Actions
         '''Getting Started Tuts Actions and Menu Options'''
-        self.welcomeSparkControl = QAction('Welcome to Spark Control', self)
+        self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
         self.gettingStartedTutsMenu.addAction(self.welcomeSparkControl)
         
-        self.firstPythonScript = QAction('First Python Script', self)
+        self.firstPythonScript = QtGui.QAction('First Python Script', self)
         self.gettingStartedTutsMenu.addAction(self.firstPythonScript)
         
         '''Sensors Tuts Actions and Menu Options'''
-        self.ultrasonicDemo = QAction('Ultrasonic Demo', self)
+        self.ultrasonicDemo = QtGui.QAction('Ultrasonic Demo', self)
         self.sensorsTutsMenu.addAction(self.ultrasonicDemo)
 
+
+##### Create Menu Actions
+    def newAction(self):
+        pass
+    def openAction(self, path=""):
+        pass
 #This section of Code is having issues with the               
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''

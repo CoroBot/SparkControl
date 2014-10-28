@@ -10,7 +10,8 @@ Author: Cameron Owens <cowens@coroware.com>
 import sys
 from PySide import QtCore, QtGui
 from code import InteractiveConsole
-from MenuBar import MainMenuBar  
+from MenuBar import MainMenuBar
+from CameraPortal import VideoDisplayPort
 from FourDirectionButtonWidget import DirectionalButtons
 from SensorDisplayWidget import DigitalDisplay
 from UnitRadioButton import UnitRadioWidget
@@ -49,7 +50,10 @@ class MainUserWindow(QtGui.QMainWindow):
         self.mainStatusBar = QtGui.QStatusBar()
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
-
+    def SetCentralWidget(self):
+        self.videoPortal = VideoDisplayPort(self)
+        self.setCentralWidget(self.videoPortal)
+        
     def CreateDockWidgets(self):
         '''Method creates the dockable widgets within the window. Within this method is a description
         of the actual widgets being created; instances of button panels and etc.'''
@@ -102,6 +106,7 @@ if __name__ == '__main__':
     try:
         SparkControl = QtGui.QApplication(sys.argv)
         mainWindow = MainUserWindow()
+        mainWindow.SetCentralWidget()
         mainWindow.CreateDockWidgets()
         mainWindow.setIcon()
         mainWindow.CreateStatusBar()
