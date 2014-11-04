@@ -11,7 +11,7 @@ Author: Cameron Owens <cowens@coroware.com>
 from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider, QLabel, QSpinBox
         
 class DirectionalButtons(QWidget):
-    def __init__(self, parent, North="Up", East="Right", South="Down", West="Left",BoxLabel='Power'):
+    def __init__(self, parent, North="Up", East="Right", South="Down", West="Left",BoxLabel='Power', valueName='Position'):
         QWidget.__init__(self)
         self.North = North
         self.East= East
@@ -37,9 +37,10 @@ class DirectionalButtons(QWidget):
         sliderLabel = QLabel(self.boxLabel)
         speedSlider.valueChanged.connect(sliderPosition.setValue)
         sliderPosition.valueChanged.connect(speedSlider.setValue)
+        SliderValue = speedSlider.value()
+        speedSlider.valueChanged.connect(self.printValue)
         
-        
-        ##Needs work to fix the layout issues......
+        #Needs work to fix the layout issues......
         buttonLayout.addWidget(northButton, 1, 1)
         buttonLayout.addWidget(eastButton, 2, 2)
         buttonLayout.addWidget(westButton, 2, 0)
@@ -49,3 +50,13 @@ class DirectionalButtons(QWidget):
         buttonLayout.addWidget(speedSlider, 2, 3, 3,3)
         
         self.setLayout(buttonLayout)
+
+
+    def printValue(self, SliderValue):
+        '''This method will be changed in the future to accommodate ZMQ message passing.''' 
+        print(self.boxLabel, SliderValue)
+        
+    
+    def northButtonPush(self):
+        '''This method defines what the 'North' button does when clicked'''
+        pass    

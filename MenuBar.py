@@ -17,7 +17,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.CreateMenus()
 
          
-#######Creation of File Menu and its actions#############################################
+#######Creation of File Menu and its actions#############################################3
         self.newAction = QtGui.QAction(QtGui.QIcon('new.png'), '&New',
                                   self, shortcut=QtGui.QKeySequence.New,
                                   statusTip="Create a New File")

@@ -26,9 +26,9 @@ class MainUserWindow(QtGui.QMainWindow):
         '''Initialization of the Object creates a window with provided dimensions and constraints'''
         QtGui.QMainWindow.__init__(self)
         self.setWindowTitle("Spark Control: Python")
-        self.setGeometry(300,300,1080,500) #(x position of center, y position of center, width and height of window)
+        self.setGeometry(1080,500,1080,500) #(x position of center, y position of center, width and height of window)
         self.setMinimumHeight(500)
-        self.setMinimumWidth(600)
+        self.setMinimumWidth(1080)
         
     def setIcon(self):
         '''Self Explainatory: Sets the icon for the application'''
@@ -65,6 +65,7 @@ class MainUserWindow(QtGui.QMainWindow):
         dock.setWidget(self.driveButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
         
+    
         dock =QtGui.QDockWidget('Camera Control', self)
         self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right', 'Sensitivity')
         dock.setWidget(self.cameraButtons)
@@ -97,7 +98,7 @@ class MainUserWindow(QtGui.QMainWindow):
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
         
   
-        
+
         
 if __name__ == '__main__':
     '''It is best practice to use this type of wrapper to in the event that someone else
@@ -118,6 +119,7 @@ if __name__ == '__main__':
         SparkControl.exec_()
         sys.exit(0)
         
+                
     except NameError:
         print("Name Error:", sys.exc_info()[1])
     except SystemExit:
