@@ -18,12 +18,12 @@ import sys
 
 class VideoDisplayPort(QtGui.QWidget):
 
-    def __init__(self,parent):
+    def __init__(self,parent, colorMode = 'RGB'):
         QtGui.QWidget.__init__(self)
 #         self.video_size = QSize(320, 240)
         self.setup_ui()
         self.setup_camera()
- 
+        self.colorMode = colorMode
     def setup_ui(self):
         """Initialize widgets.
         """
@@ -49,8 +49,19 @@ class VideoDisplayPort(QtGui.QWidget):
         """Read frame from camera and repaint QLabel widget.
         """
         _, frame = self.capture.read()
-        frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2RGB)
+        if self.colorMode == 'RGB':
+            frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2RGB)
         
         image = QtGui.QImage(frame, frame.shape[1], frame.shape[0], 
                        frame.strides[0], QtGui.QImage.Format_RGB888)
         self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image))
+    
+    def display_gray_video_stream(self):
+        """Read frame from camera and repaint QLabel widget.
+        """
+        _, frame = self.capture.read()
+        frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
+        
+        image = QtGui.QImage(frame, frame.shape[1], frame.shape[0], 
+                       frame.strides[0], QtGui.QImage.Format_RGB888)
+        self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image)) 

@@ -51,7 +51,12 @@ class MainUserWindow(QtGui.QMainWindow):
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
     def SetCentralWidget(self):
-        self.videoPortal = VideoDisplayPort(self)
+        '''Creates central video portal. Video Portal takes one input for
+        the color mode to be displayed. The available options are
+        RGB = Red, Green, Blue
+        GRAY = Grey/Gray depending on nationality
+        '''
+        self.videoPortal = VideoDisplayPort(self, 'RGB')
         self.setCentralWidget(self.videoPortal)
         
     def CreateDockWidgets(self):

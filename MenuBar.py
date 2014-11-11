@@ -8,7 +8,7 @@ Version 0.01
 Author: Cameron Owens <cowens@coroware.com>
 
 '''
-from PySide import QtCore, QtGui
+from PySide import QtCore, QtGui, QtWebKit
 #Is there a way to list dependencies for a Python application like in ROS?
 
 class MainMenuBar(QtGui.QMenuBar):
@@ -24,8 +24,11 @@ class MainMenuBar(QtGui.QMenuBar):
         self.fileMenu.addAction(self.newAction)
         
 
-        self.openAction = QtGui.QAction(QtGui.QIcon('open.png'), '&Open', self,
-                                  shortcut = QtGui.QKeySequence.Open)
+        self.openAction = QtGui.QAction(QtGui.QIcon('open.png'), '&Open', self)
+        self.openAction.setShortcut('Ctrl+O')
+        self.openAction.setStatusTip('Open New File')
+        self.openAction.triggered.connect(self.openDialog)
+        
         self.fileMenu.addAction(self.openAction)
         
         self.importAction = QtGui.QAction(QtGui.QIcon('import.png'), '&Import',
@@ -114,23 +117,45 @@ class MainMenuBar(QtGui.QMenuBar):
 
 ###### Creation of Tutorials Menu Options and Actions
         '''Getting Started Tuts Actions and Menu Options'''
-        self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
+        self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self, triggered = self.WelcomeAction())
         self.gettingStartedTutsMenu.addAction(self.welcomeSparkControl)
         
         self.firstPythonScript = QtGui.QAction('First Python Script', self)
         self.gettingStartedTutsMenu.addAction(self.firstPythonScript)
         
         '''Sensors Tuts Actions and Menu Options'''
-        self.ultrasonicDemo = QtGui.QAction('Ultrasonic Demo', self)
+        self.ultrasonicDemo = QtGui.QAction('Ultrasonic Tutorial', self)
         self.sensorsTutsMenu.addAction(self.ultrasonicDemo)
-
-
+        
+        self.PWMDemo = QtGui.QAction('PWM Tutorial', self)
+        self.motorsTutsMenu.addAction(self.PWMDemo)
+        self.PIDControlDemo = QtGui.QAction('PID Tutorial', self)
+        self.motorsTutsMenu.addAction(self.PIDControlDemo)
+        
+        self.TurningDemo = QtGui.QAction('Turning Tutorial', self)
+        self.motorsTutsMenu.addAction(self.TurningDemo)
+        
+        self.BackgroundSubtractionDemo = QtGui.QAction('Background Subtraction Tutorial', self)
+        self.machineVisionTutsMenu.addAction(self.BackgroundSubtractionDemo)
+        
+        self.OpticalFlowDemo = QtGui.QAction('Optical Flow Tutorial', self)
+        self.machineVisionTutsMenu.addAction(self.OpticalFlowDemo)
+    
+    def WelcomeAction(self):
+        pass
 ##### Create Menu Actions
     def newAction(self):
         pass
-    def openAction(self, path=""):
-        pass
-#This section of Code is having issues with the               
+    
+    def openDialog(self, path=""):
+        fileName, _ = QtGui.QFileDialog.getOpenFileName(self, "Open Text Files", "c:/", "Python Files(*.py)")
+         
+        contents = open(fileName, 'r')
+         
+        with contents:
+            data = contents.read()
+            self.textEdit.setText(data)
+           
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
         self.fileMenu = self.addMenu("&File")
@@ -148,9 +173,9 @@ class MainMenuBar(QtGui.QMenuBar):
         self.toolsMenu = self.addMenu('&Tools')
         self.tutorialsMenu = self.addMenu('Tutorials')
         self.gettingStartedTutsMenu = self.tutorialsMenu.addMenu('Getting Started')
-        self.sensorsTutsMenu = self.tutorialsMenu.addMenu('Learning Sensors')
-        self.motorsTutsMenu = self.tutorialsMenu.addMenu('Learning Motor Control')
-        self.machineVisionTutsMenu = self.tutorialsMenu.addMenu('Machine Vision')
+        self.sensorsTutsMenu = self.tutorialsMenu.addMenu('Sensors Tutorials')
+        self.motorsTutsMenu = self.tutorialsMenu.addMenu('Motor Control Tutorials')
+        self.machineVisionTutsMenu = self.tutorialsMenu.addMenu('Machine Vision Tutorials')
         self.settingsMenu = self.addMenu('Settings')
         self.helpMenu = self.addMenu("&Help")
        
