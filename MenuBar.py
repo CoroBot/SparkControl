@@ -10,6 +10,7 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 from PySide import QtCore, QtGui, QtWebKit
 from UltrasonicsConfigDialog import UltrasonicConfigDialog
+from ConnectToSpark import connectToSparkDialog
 #Is there a way to list dependencies for a Python application like in ROS?
 
 class MainMenuBar(QtGui.QMenuBar):
@@ -72,7 +73,7 @@ class MainMenuBar(QtGui.QMenuBar):
 ###### Creation of Setting Menus and Actions    
         self.connectToSpark = QtGui.QAction('&Connect To Spark', self)
         self.settingsMenu.addAction(self.connectToSpark)
-
+        self.connectToSpark.triggered.connect(self.ConnectToSparkAction)
 
         
 ########Creation of Sensor Menus and Actions#############################################
@@ -183,7 +184,9 @@ class MainMenuBar(QtGui.QMenuBar):
         welcomeFrame.setText("Welcome To Spark Control, the Python based UI for the Corobot Spark")
         welcomeFrame.exec_()
         
-      
+    def ConnectToSparkAction(self):
+        connectFrame = connectToSparkDialog(self)
+        connectFrame.exec_()
    
             
     def CreateMenus(self):
