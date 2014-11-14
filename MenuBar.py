@@ -9,6 +9,7 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 from PySide import QtCore, QtGui, QtWebKit
+from UltrasonicsConfigDialog import UltrasonicConfigDialog
 #Is there a way to list dependencies for a Python application like in ROS?
 
 class MainMenuBar(QtGui.QMenuBar):
@@ -21,6 +22,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.newAction = QtGui.QAction(QtGui.QIcon('new.png'), '&New',
                                   self, shortcut=QtGui.QKeySequence.New,
                                   statusTip="Create a New File")
+        self.newAction.triggered.connect(self.newFileAction)
         self.fileMenu.addAction(self.newAction)
         
 
@@ -67,10 +69,17 @@ class MainMenuBar(QtGui.QMenuBar):
          
         self.askExperts = QtGui.QAction('&Ask the Experts', self)
         self.helpMenu.addAction(self.askExperts)
-          
+###### Creation of Setting Menus and Actions    
+        self.connectToSpark = QtGui.QAction('&Connect To Spark', self)
+        self.settingsMenu.addAction(self.connectToSpark)
+
+
+        
 ########Creation of Sensor Menus and Actions#############################################
         self.configureUltrasonic = QtGui.QAction('&Configure Ultrasonic Code', self)
+        self.configureUltrasonic.triggered.connect(self.UltrasonicsDialog)
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
+        
         self.setUltrasonicUnits = QtGui.QAction('& Set Units', self)
         self.ultrasonicMenu.addAction(self.setUltrasonicUnits)
         
@@ -117,7 +126,8 @@ class MainMenuBar(QtGui.QMenuBar):
 
 ###### Creation of Tutorials Menu Options and Actions
         '''Getting Started Tuts Actions and Menu Options'''
-        self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self, triggered = self.WelcomeAction())
+        self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
+        self.welcomeSparkControl.triggered.connect(self.WelcomeAction)
         self.gettingStartedTutsMenu.addAction(self.welcomeSparkControl)
         
         self.firstPythonScript = QtGui.QAction('First Python Script', self)
@@ -140,11 +150,9 @@ class MainMenuBar(QtGui.QMenuBar):
         
         self.OpticalFlowDemo = QtGui.QAction('Optical Flow Tutorial', self)
         self.machineVisionTutsMenu.addAction(self.OpticalFlowDemo)
-    
-    def WelcomeAction(self):
-        pass
-##### Create Menu Actions
-    def newAction(self):
+
+##### File Menu Actions:
+    def newFileAction(self):
         pass
     
     def openDialog(self, path=""):
@@ -155,7 +163,29 @@ class MainMenuBar(QtGui.QMenuBar):
         with contents:
             data = contents.read()
             self.textEdit.setText(data)
-           
+            
+    def importAction(self):
+        pass
+    
+    def exportAction(self):
+        pass
+    
+    def exitAction(self):
+        pass
+###### Sensor Configuration Actions    
+    def UltrasonicsDialog(self):
+        dialogWindow = UltrasonicConfigDialog(self)
+        dialogWindow.exec_()
+        
+ ###### Tutorial Menubar Actions   
+    def WelcomeAction(self):
+        welcomeFrame = QtGui.QMessageBox()
+        welcomeFrame.setText("Welcome To Spark Control, the Python based UI for the Corobot Spark")
+        welcomeFrame.exec_()
+        
+      
+   
+            
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
         self.fileMenu = self.addMenu("&File")
