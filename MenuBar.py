@@ -10,7 +10,9 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 from PySide import QtCore, QtGui, QtWebKit
 from UltrasonicsConfigDialog import UltrasonicConfigDialog
+from InfraredConfigDialog import InfraredConfigDialog
 from ConnectToSpark import connectToSparkDialog
+
 #Is there a way to list dependencies for a Python application like in ROS?
 
 class MainMenuBar(QtGui.QMenuBar):
@@ -85,6 +87,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.ultrasonicMenu.addAction(self.setUltrasonicUnits)
         
         self.configureInfrared = QtGui.QAction('&Configure Infrarred Code', self)
+        self.configureInfrared.triggered.connect(self.InfraredConfigDialog)
         self.infraredMenu.addAction(self.configureInfrared)
         self.setInfraredUnits = QtGui.QAction('& Set Units', self)
         self.infraredMenu.addAction(self.setInfraredUnits)
@@ -112,7 +115,12 @@ class MainMenuBar(QtGui.QMenuBar):
         self.showHUD = QtGui.QAction('&Show HUD', self)
         self.windowMenu.addAction(self.showHUD)
         
-        self.frontLeftUltrasonicDisplay = QtGui.QAction('FLeft Ultrasonic Sensor Display', self)
+        self.motionControlDisplay = QtGui.QAction('Motion Control Panel',self)
+        self.showDirectionPanels.addAction(self.motionControlDisplay)
+        self.cameraControlDisplay = QtGui.QAction('Camera Control Panel', self)
+        self.showDirectionPanels.addAction(self.cameraControlDisplay)
+        
+        self.frontLeftUltrasonicDisplay = QtGui.QAction('Front Left Ultrasonic Sensor Display', self)
         self.showSensorPanels.addAction(self.frontLeftUltrasonicDisplay)
         self.frontRightUltrasonicDisplay = QtGui.QAction('Front Right Ultrasonic Sensor Display', self)
         self.showSensorPanels.addAction(self.frontRightUltrasonicDisplay)
@@ -177,7 +185,10 @@ class MainMenuBar(QtGui.QMenuBar):
     def UltrasonicsDialog(self):
         dialogWindow = UltrasonicConfigDialog(self)
         dialogWindow.exec_()
-        
+    
+    def InfraredConfigDialog(self):
+        IRDialogWindow = InfraredConfigDialog(self)
+        IRDialogWindow.exec_()    
  ###### Tutorial Menubar Actions   
     def WelcomeAction(self):
         welcomeFrame = QtGui.QMessageBox()

@@ -12,27 +12,25 @@ Author: Cameron Owens <cowens@coroware.com>
 from PySide import QtCore, QtGui
 
 
-class connectToSparkDialog(QtGui.QInputDialog):
+class connectToSparkDialog(QtGui.QDialog):
     def __init__(self,parent):
-        QtGui.QInputDialog.__init__(self)
+        QtGui.QDialog.__init__(self)
         self.IPaddressLabel= QtGui.QLabel('Spark IP Address')
         self.IPaddressInput= QtGui.QLineEdit(self)
         self.connectButton = QtGui.QPushButton('Connect')
         self.cancelButton = QtGui.QPushButton('Cancel')
         
-        InputdialogLayout = QtGui.QHBoxLayout()
-        InputdialogLayout.addWidget(self.IPaddressLabel)
-        InputdialogLayout.addWidget(self.IPaddressInput)
+        self.InputRow = QtGui.QHBoxLayout()
+        self.InputRow.addWidget(self.IPaddressLabel)
+        self.InputRow.addWidget(self.IPaddressInput)
         
-        DialogButtonLayout = QtGui.QHBoxLayout()
-        DialogButtonLayout.addWidget(self.connectButton)
-        DialogButtonLayout.addWidget(self.cancelButton)
+        self.buttonRow = QtGui.QHBoxLayout()
+        self.buttonRow.addWidget(self.cancelButton)
+        self.buttonRow.addWidget(self.connectButton)
         
-        mainDialogLayout = QtGui.QVBoxLayout
-        mainDialogLayout.addWidget(InputdialogLayout)
-        mainDialogLayout.addWidget(DialogButtonLayout)
+        self.mainLayout = QtGui.QVBoxLayout()
+        self.mainLayout.addLayout(self.InputRow)
+        self.mainLayout.addLayout(self.buttonRow)
         
-        self.setWindowTitle('Connect To CoroBot Spark')
-        self.setLayout(mainDialogLayout)
-        
-        
+        self.setWindowTitle('Connect To Spark')
+        self.setLayout(self.mainLayout)

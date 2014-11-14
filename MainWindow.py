@@ -2,7 +2,7 @@
 CoroBot Spark Main User Window
 Developer: CoroWare
 Date: 30, September 2014
-Version 0.01
+Version 0.01 
 
 Author: Cameron Owens <cowens@coroware.com>
 
