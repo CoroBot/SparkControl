@@ -79,27 +79,27 @@ class MainMenuBar(QtGui.QMenuBar):
 
         
 ########Creation of Sensor Menus and Actions#############################################
-        self.configureUltrasonic = QtGui.QAction('&Configure Ultrasonic Code', self)
+        self.configureUltrasonic = QtGui.QAction('&Configure Ultrasonic Settings', self)
         self.configureUltrasonic.triggered.connect(self.UltrasonicsDialog)
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
         
         self.setUltrasonicUnits = QtGui.QAction('& Set Units', self)
         self.ultrasonicMenu.addAction(self.setUltrasonicUnits)
         
-        self.configureInfrared = QtGui.QAction('&Configure Infrarred Code', self)
+        self.configureInfrared = QtGui.QAction('&Configure Infrarred Settings', self)
         self.configureInfrared.triggered.connect(self.InfraredConfigDialog)
         self.infraredMenu.addAction(self.configureInfrared)
         self.setInfraredUnits = QtGui.QAction('& Set Units', self)
         self.infraredMenu.addAction(self.setInfraredUnits)
          
-        self.configureCamera = QtGui.QAction('&Configure Camera Code', self)
+        self.configureCamera = QtGui.QAction('&Configure Camera Settings', self)
         self.cameraMenu.addAction(self.configureCamera)
         self.setColorMode = QtGui.QAction('&Set Color Mode', self)
         self.cameraMenu.addAction(self.setColorMode)
         self.setCameraResolution = QtGui.QAction('&Set Camera Resolution', self)
         self.cameraMenu.addAction(self.setCameraResolution)
          
-        self.configureRPLidar = QtGui.QAction('Configure RPLidar Code', self)
+        self.configureRPLidar = QtGui.QAction('Configure RPLidar', self)
         self.RPLidarMenu.addAction(self.configureRPLidar)
         self.setRPLidarSampleRate = QtGui.QAction('Set Sample Rate', self)
         self.RPLidarMenu.addAction(self.setRPLidarSampleRate)
@@ -110,6 +110,7 @@ class MainMenuBar(QtGui.QMenuBar):
  
 # ######  Creation of Window Menu Menus and Actions   ################################
         self.fullScreen = QtGui.QAction('&Full Screen', self)
+        self.fullScreen.triggered.connect(self.showFullScreen)
         self.windowMenu.addAction(self.fullScreen)
          
         self.showHUD = QtGui.QAction('&Show HUD', self)

@@ -10,6 +10,7 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 
 from PySide import QtCore, QtGui
+import os
 
 
 class connectToSparkDialog(QtGui.QDialog):
@@ -34,3 +35,4 @@ class connectToSparkDialog(QtGui.QDialog):
         
         self.setWindowTitle('Connect To Spark')
         self.setLayout(self.mainLayout)
+        
