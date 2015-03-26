@@ -12,6 +12,8 @@ from PySide import QtCore, QtGui, QtWebKit
 from UltrasonicsConfigDialog import UltrasonicConfigDialog
 from InfraredConfigDialog import InfraredConfigDialog
 from ConnectToSpark import connectToSparkDialog
+from CameraConfigDialog import CameraConfigDialog
+from SensorDisplayWidget import DigitalDisplay
 
 #Is there a way to list dependencies for a Python application like in ROS?
 
@@ -21,7 +23,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.CreateMenus()
 
          
-#######Creation of File Menu and its actions#############################################3
+#######Creation of File Menu###########################################3
         self.newAction = QtGui.QAction(QtGui.QIcon('new.png'), '&New',
                                   self, shortcut=QtGui.QKeySequence.New,
                                   statusTip="Create a New File")
@@ -49,7 +51,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.connect(self.exitAction, QtCore.SIGNAL("triggered()"),QtGui.qApp, QtCore.SLOT("quit()"))
         
         
-#####  Creation of Source Menu Actions        ########################################
+#####  Creation of Source Menu  ########################################
         self.viewSource = QtGui.QAction('&View Source', self)
         self.sourceMenu.addAction(self.viewSource)
         
@@ -60,7 +62,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.sourceMenu.addAction(self.viewAuthors)
          
 
-#####  Creation of Help Menu & Actions   ############################################  
+#####  Creation of Help Menu ############################################  
         self.welcomeHelp = QtGui.QAction('&Welcome', self)
         self.helpMenu.addAction(self.welcomeHelp)
          
@@ -72,13 +74,13 @@ class MainMenuBar(QtGui.QMenuBar):
          
         self.askExperts = QtGui.QAction('&Ask the Experts', self)
         self.helpMenu.addAction(self.askExperts)
-###### Creation of Setting Menus and Actions    
+###### Creation of Setting Menus #################
         self.connectToSpark = QtGui.QAction('&Connect To Spark', self)
         self.settingsMenu.addAction(self.connectToSpark)
         self.connectToSpark.triggered.connect(self.ConnectToSparkAction)
 
         
-########Creation of Sensor Menus and Actions#############################################
+########Creation of Sensor Menus ########################################
         self.configureUltrasonic = QtGui.QAction('&Configure Ultrasonic Settings', self)
         self.configureUltrasonic.triggered.connect(self.UltrasonicsDialog)
         self.ultrasonicMenu.addAction(self.configureUltrasonic)
@@ -93,6 +95,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.infraredMenu.addAction(self.setInfraredUnits)
          
         self.configureCamera = QtGui.QAction('&Configure Camera Settings', self)
+        self.configureCamera.triggered.connect(self.CameraConfigDialog)
         self.cameraMenu.addAction(self.configureCamera)
         self.setColorMode = QtGui.QAction('&Set Color Mode', self)
         self.cameraMenu.addAction(self.setColorMode)
@@ -108,7 +111,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.additionalSensorsMenu.addAction(self.configureSensor)
  
  
-# ######  Creation of Window Menu Menus and Actions   ################################
+# ######  Creation of Window Menu Menus ################################
         self.fullScreen = QtGui.QAction('&Full Screen', self)
         self.fullScreen.triggered.connect(self.showFullScreen)
         self.windowMenu.addAction(self.fullScreen)
@@ -122,6 +125,8 @@ class MainMenuBar(QtGui.QMenuBar):
         self.showDirectionPanels.addAction(self.cameraControlDisplay)
         
         self.frontLeftUltrasonicDisplay = QtGui.QAction('Front Left Ultrasonic Sensor Display', self)
+        self.frontLeftUltrasonicDisplay.triggered.connect(self.FrontLeftUltrasonicWidget)
+
         self.showSensorPanels.addAction(self.frontLeftUltrasonicDisplay)
         self.frontRightUltrasonicDisplay = QtGui.QAction('Front Right Ultrasonic Sensor Display', self)
         self.showSensorPanels.addAction(self.frontRightUltrasonicDisplay)
@@ -130,11 +135,10 @@ class MainMenuBar(QtGui.QMenuBar):
         self.rearUltrasonicDisplay = QtGui.QAction('Rear Ultrasonic Display', self)
         self.showSensorPanels.addAction(self.rearUltrasonicDisplay)
         
-##### Creation of Tools Menu Options and  Actions
+##### Creation of Tools Menu Options
 
 
-
-###### Creation of Tutorials Menu Options and Actions
+###### Creation of Tutorials Menu Options
         '''Getting Started Tuts Actions and Menu Options'''
         self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
         self.welcomeSparkControl.triggered.connect(self.WelcomeAction)
@@ -182,6 +186,10 @@ class MainMenuBar(QtGui.QMenuBar):
     
     def exitAction(self):
         pass
+
+#### Edit Menu Actions:
+    
+
 ###### Sensor Configuration Actions    
     def UltrasonicsDialog(self):
         dialogWindow = UltrasonicConfigDialog(self)
@@ -190,17 +198,61 @@ class MainMenuBar(QtGui.QMenuBar):
     def InfraredConfigDialog(self):
         IRDialogWindow = InfraredConfigDialog(self)
         IRDialogWindow.exec_()    
- ###### Tutorial Menubar Actions   
-    def WelcomeAction(self):
-        welcomeFrame = QtGui.QMessageBox()
-        welcomeFrame.setText("Welcome To Spark Control, the Python based UI for the Corobot Spark")
-        welcomeFrame.exec_()
-        
+    
+    def CameraConfigDialog(self):
+        CameraConfigDialogWindow = CameraConfigDialog(self)
+        CameraConfigDialogWindow.exec_()
+ 
+####### Window Configuration Actions
+  #### Distance Sensors  
+    def FrontLeftUltrasonicWidget(self):
+        pass
+
+    def FrontRightUltrasonicWidget(self):
+        pass
+    
+    def FrontIRWidget(self):
+        pass
+
+    def RearUltrasonicWidget(self):
+        pass
+
+   ##### Motion Control Panels
+    def CameraControlPanel(self):
+        pass
+    
+    def MotionControlPanel(self):
+        pass
+
+
+  ####### Window Options
+    def FullScreen(self):
+        pass
+
+
+###### Tool Menu Actions
+
+    
+##### Tutorial Menubar Actions   
+
+
+#### Settings Menu Actions
+
     def ConnectToSparkAction(self):
         connectFrame = connectToSparkDialog(self)
         connectFrame.exec_()
    
-            
+
+#### Help Menu Actions
+    
+    def WelcomeAction(self):
+        welcomeFrame=QtGui.QMessageBox()
+        welcomeFrame.setText('Welcomm to Spark Control, the Python based UI for the CoroBot Spark')
+        welcomeFrame.exec_()
+
+
+
+#################################################################################################################################################################            
     def CreateMenus(self):
         '''Method that creates Menus in Menu Bar'''
         self.fileMenu = self.addMenu("&File")
@@ -222,7 +274,4 @@ class MainMenuBar(QtGui.QMenuBar):
         self.motorsTutsMenu = self.tutorialsMenu.addMenu('Motor Control Tutorials')
         self.machineVisionTutsMenu = self.tutorialsMenu.addMenu('Machine Vision Tutorials')
         self.settingsMenu = self.addMenu('Settings')
-        self.helpMenu = self.addMenu("&Help")
-       
-
-        
+        self.helpMenu = self.addMenu("&Help")      

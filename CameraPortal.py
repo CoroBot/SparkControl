@@ -50,18 +50,11 @@ class VideoDisplayPort(QtGui.QWidget):
         """
         _, frame = self.capture.read()
         if self.colorMode == 'RGB':
-            frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2RGB)
-        
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        elif self.colorMode=='BW':
+            frame = cv2.cvtColor(frame, cv2.THRESH_BINARY_INV)
+        elif self.colorMode=='TOL_Zero':
+            frame = cv2.cvtColor(frame, cv2.THRESH_TOZERO)     
         image = QtGui.QImage(frame, frame.shape[1], frame.shape[0], 
                        frame.strides[0], QtGui.QImage.Format_RGB888)
         self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image))
-    
-    def display_gray_video_stream(self):
-        """Read frame from camera and repaint QLabel widget.
-        """
-        _, frame = self.capture.read()
-        frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
-        
-        image = QtGui.QImage(frame, frame.shape[1], frame.shape[0], 
-                       frame.strides[0], QtGui.QImage.Format_RGB888)
-        self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image)) 
