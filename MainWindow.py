@@ -15,6 +15,8 @@ from CameraPortal import VideoDisplayPort
 from FourDirectionButtonWidget import DirectionalButtons
 from SensorDisplayWidget import DigitalDisplay
 from UnitRadioButton import UnitRadioWidget
+from iPythonWidget import iPythonTerminalWidget
+
 #Import required modules
 
 
@@ -102,7 +104,10 @@ class MainUserWindow(QtGui.QMainWindow):
         dock.setWidget(self.rearUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
         
-  
+        dock = QtGui.QDockWidget('iPython Console',self)
+        self.TerminalWidget=iPythonTerminalWidget(self)
+        dock.setWidget(self.TerminalWidget)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
 
         
 if __name__ == '__main__':

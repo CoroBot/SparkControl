@@ -1,5 +1,5 @@
 '''
-CoroBot Spark Main User Window
+CoroBot Digital Display for Sensor Data 
 Developer: CoroWare
 Date: 30, September 2014
 Version 0.01
