@@ -14,6 +14,7 @@ from InfraredConfigDialog import InfraredConfigDialog
 from ConnectToSpark import connectToSparkDialog
 from CameraConfigDialog import CameraConfigDialog
 from SensorDisplayWidget import DigitalDisplay
+from TutorialWindow import TutorialWindow
 
 #Is there a way to list dependencies for a Python application like in ROS?
 
@@ -151,11 +152,12 @@ class MainMenuBar(QtGui.QMenuBar):
         self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
         self.welcomeSparkControl.triggered.connect(self.WelcomeAction)
         self.gettingStartedTutsMenu.addAction(self.welcomeSparkControl)
+
+        self.firstPythonScrip = QtGui.QAction('First Python Script', self)
+        self.firstPythonScrip.triggered.connect(self.FirstPythonScript)
+        self.gettingStartedTutsMenu.addAction(self.firstPythonScrip)
         
-        self.firstPythonScript = QtGui.QAction('First Python Script', self)
-        self.gettingStartedTutsMenu.addAction(self.firstPythonScript)
-        
-        '''Sensors Tuts Actions and Menu Options'''
+#        '''Sensors Tuts Actions and Menu Options'''
         self.ultrasonicDemo = QtGui.QAction('Ultrasonic Tutorial', self)
         self.sensorsTutsMenu.addAction(self.ultrasonicDemo)
         
@@ -250,7 +252,9 @@ class MainMenuBar(QtGui.QMenuBar):
   # Tool Menu Actions -------------------------------------------
 
   # Tutorial Menubar Actions ------------------------------------
-
+    def FirstPythonScript(self):
+        FirstPythonScript=TutorialWindow(self,'First Python Script','Something','www.corobot.net')
+        FirstPythonScript.exec_()
   # Settings Menu Actions ---------------------------------------
 
     def ConnectToSparkAction(self):

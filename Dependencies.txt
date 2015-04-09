@@ -1,0 +1,19 @@
+This document is written for the purpose of listing all of the dependencies and
+requirements to build a Spark SD Card image from source with the end goal of
+creating a shell scrip that will automatically configure any Raspbian SD card
+into a Spark compliant SD Card.
+
+Build Process
+1) Run software updates and upgrades
+    -sudo apt-get update && sudo apt-get upgrade
+2) Build OpenCV
+    -sudo apt-get install build-essential cmake pkg-config libjpeg8-dev
+    libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libdavcodec-dev
+    libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran
+    
+    -wget https:bootstrap.pypa.io/get-pip.py
+    -sudo python get-pip.py
+    -sudo pip install virtualevn virtualenvwrapper #This is based upon Cameron
+    Owens' best practicies phillosophy to allow for seperation of python
+    projects
+    

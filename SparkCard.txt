@@ -1,0 +1,16 @@
+#The purpose of this document is to outline the proceedure to create a official
+Gold master Spark Image including all dependencies and etc. This is to serve as
+an innitial starting point for putting together documentation of all the
+software that is being included on the image and etc. The end goal of this
+documentation is to ultimately be a shell script that will allow any user to
+run this script on their raspberry pi and have it get all of the required
+softwre to be used in a CoroBot Spark Project. 
+
+1) Run software updates and upgrades
+    -sudo apt-get update && sudo apt-get upgrade
+
+2) Install Python and Python Related Dependencies. 
+    -sudo apt-get install python3 python-pyside python3-pyside
+    -wget https://bootstrap.pypa.io/get-pip.py
+    -sudo python get-pip.py
+    -sudo pip install numpy virtualenv virtualenvwrapper
