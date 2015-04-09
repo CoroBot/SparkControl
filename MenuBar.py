@@ -253,7 +253,7 @@ class MainMenuBar(QtGui.QMenuBar):
 
   # Tutorial Menubar Actions ------------------------------------
     def FirstPythonScript(self):
-        FirstPythonScript=TutorialWindow(self,'First Python Script','Something','www.corobot.net')
+        FirstPythonScript=TutorialWindow(self,'First Python Script','Something','http://www.corobot.net/')
         FirstPythonScript.exec_()
   # Settings Menu Actions ---------------------------------------
 

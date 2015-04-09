@@ -10,17 +10,20 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 
 from PySide import QtCore, QtGui, QtWebKit
+from PySide.QtCore import QUrl
 
 class TutorialWindow(QtGui.QDialog):
     def __init__(self, parent,Title='Tutorial_Name', TutorialBlob='Text Here',TutorialVideo='Insert URL Here'):
         QtGui.QDialog.__init__(self)
         self.WindowLabel = Title
-        webWindow=QtWebKit.QWebView()
-        webWindow.load(QtCore.QUrl("www.youtube.com"))
-        textBlobWindow = QtGui.QTextDocument()
+        videoView=QtWebKit.QWebView()
+        videoURL = TutorialVideo
+        videoView.load(QUrl(videoURL))
+        videoView.show()
+        
+        
         layout=QtGui.QGridLayout()
-        layout.addWidget(webWindow,0,0)
-        layout.addWidget(textBlobWindow,1,0)
-        webWindow.show()
+        layout.addWidget(videoView,0,0)
+#        layout.addWidget(textBlobWindow,1,0)
         self.setWindowTitle(self.WindowLabel)
         self.setLayout(layout)
