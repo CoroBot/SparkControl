@@ -21,9 +21,15 @@ class TutorialWindow(QtGui.QDialog):
         videoView.load(QUrl(videoURL))
         videoView.show()
         
-        
-        layout=QtGui.QGridLayout()
-        layout.addWidget(videoView,0,0)
-#        layout.addWidget(textBlobWindow,1,0)
-        self.setWindowTitle(self.WindowLabel)
-        self.setLayout(layout)
+        textBlob = QtGui.QMessageBox()
+        textBlob.setText("hello world")
+
+        videoFrameHolder = QtGui.QScrollArea
+        videoFrameHolder.setWidget(videoView)
+        textFrameHolder = QtGui.QScrollArea
+        textFrameHolder.setWidget(textBlob)
+
+        dialogLayout = QtGui.QVBoxLayout()
+        dialogLayout.addWidget(videoFrameHolder)
+        dialogLayout.addWidget(textFrameHolder)
+        self.setLayout(dialogLayout)
