@@ -34,7 +34,7 @@ class MainUserWindow(QtGui.QMainWindow):
         
     def setIcon(self):
         '''Self Explainatory: Sets the icon for the application'''
-        SparkIcon = QtGui.QIcon('icon.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
+        SparkIcon = QtGui.QIcon('icon2.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
         self.setWindowIcon(SparkIcon)
         
     def CenterMethod(self):

@@ -11,20 +11,7 @@ Author: Cameron Owens <cowens@coroware.com>
 from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider, QLabel, QSpinBox
         
 class DirectionalButtons(QWidget):
-    '''
-    Class used for creation of four directional buttons. 
-
-    :Inputs: North Button Name, East Button Name, South Button Name, West
-    Button Name, Box Label, Slider Start Position
-    :Input Types: string, string, string, string, string, string
-
-    '''
     def __init__(self, parent, North="Up", East="Right", South="Down", West="Left",BoxLabel='Power', valueName='Position'):
-        '''
-        Initialization method that defines all variables and names.
-        See class documentation for inputs that are created when this class is
-        instanced
-        '''
         QWidget.__init__(self)
         self.North = North
         self.East= East
