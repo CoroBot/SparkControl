@@ -32,10 +32,10 @@ class MainUserWindow(QtGui.QMainWindow):
         self.setMinimumHeight(500)
         self.setMinimumWidth(1080)
         
-    def setIcon(self):
-        '''Self Explainatory: Sets the icon for the application'''
-        SparkIcon = QtGui.QIcon('icon2.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
-        self.setWindowIcon(SparkIcon)
+#    def setIcon(self):
+#        '''Self Explainatory: Sets the icon for the application'''
+#        SparkIcon = QtGui.QIcon('icon2.png') #Make Sure to store icon.png file in same folder as MainUserWindow Script
+#        self.setWindowIcon(SparkIcon)
         
     def CenterMethod(self):
         '''Method that centers the application on the computer's main display'''
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         mainWindow = MainUserWindow()
         mainWindow.SetCentralWidget()
         mainWindow.CreateDockWidgets()
-        mainWindow.setIcon()
+#        mainWindow.setIcon()
         mainWindow.CreateStatusBar()
         SparkMenu = MainMenuBar()
         SparkMenu.SetupComponents()
