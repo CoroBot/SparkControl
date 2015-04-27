@@ -8,9 +8,54 @@ softwre to be used in a CoroBot Spark Project.
 
 1) Run software updates and upgrades
     -sudo apt-get update && sudo apt-get upgrade
+    -sudo rpi-update
+
+1.a) Create Recommended Directories for Organization
+    -mkdir Downloads
 
 2) Install Python and Python Related Dependencies. 
     -sudo apt-get install python3 python-pyside python3-pyside
-    -wget https://bootstrap.pypa.io/get-pip.py
-    -sudo python get-pip.py
+    -wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/
+    -sudo python ~/Downloads/get-pip.py
     -sudo pip install numpy virtualenv virtualenvwrapper
+    -sudo pip install pyzmq
+    -sudo apt-get install python-all-dev
+
+2.a*) Install Anaconda and other tools provided by Continiuum and CoroBot
+    -*Add what ever repository that we park Anaconda4Raspi
+
+3) Install OpenCV on the Raspberry Pi
+    -sudo apt-get install build-essential cmake pkg-config libjpeg8-dev
+    libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev
+    libavformat-dev libswscale-dev libv41-dev libatlas-base-dev gfortran
+
+    -wget -O opencv-2.4.10.zip
+    http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download
+    ~/Downloads/
+    -unzip ~/Downloads/opencv-2.4.10.zip
+    -cd ~/Downloads/opencv-2.4.10
+    -mkdir build && cd build
+    -cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
+    -make
+    -sudo make install
+    -sudo ldconfig #creates the necessary links and cahce to the most recent
+    shared libraries found in the directories specified on the command line
+
+4) Install ROS Hydro (Optional)
+    *Although Indigo has been released, it is not all that stable/great on the
+    Raspberry Pi
+    
+    -sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu raring main" > /etc/apt/sources.list.d/ros-latest.list'
+    - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+    - sudo apt-get update && sudo apt-get upgrade
+    -sudo pip install rosdistro
+    -sudo pip install wstool
+    -mkdir Downloads && cd Downloads
+    -wget https://pypi.python.org/packages/source/s/setuptools/setuptools-1.1.6.tar.gz
+
+
+* Steps still in the process of being created and tested. Will release public
+* announcement once they have been tested and verified that they are fully
+* working. 
+
+
