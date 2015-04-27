@@ -149,17 +149,39 @@ class MainMenuBar(QtGui.QMenuBar):
 # Creation of Tutorials Menu Options
 # ----------------------------------------------
         '''Getting Started Tuts Actions and Menu Options'''
+
+        self.WelcomeToSpark = QtGui.QAction('CoroBot Spark Introduction', self)
+        self.WelcomeToSpark.triggered.connect(self.SparkIntroduction)
+        self.gettingStartedTutsMenu.addAction(self.WelcomeToSpark)
+
         self.welcomeSparkControl = QtGui.QAction('Welcome to Spark Control', self)
         self.welcomeSparkControl.triggered.connect(self.WelcomeAction)
         self.gettingStartedTutsMenu.addAction(self.welcomeSparkControl)
-
+        
         self.firstPythonScrip = QtGui.QAction('First Python Script', self)
         self.firstPythonScrip.triggered.connect(self.FirstPythonScript)
         self.gettingStartedTutsMenu.addAction(self.firstPythonScrip)
+# Creation of Communications Tutorial Menu Options
+#-----------------------------------------------------
+        self.learnZMQ = QtGui.QAction('ZMQ Messages', self)
+        self.learnZMQ.triggered.connect(self.LearnZMQTut)
+        self.communicationsTutsMenu.addAction(self.learnZMQ)
+
+
         
-#        '''Sensors Tuts Actions and Menu Options'''
+# Sensors Tuts Actions and Menu Options
+#--------------------------------------
         self.ultrasonicDemo = QtGui.QAction('Ultrasonic Tutorial', self)
+        self.ultrasonicDemo.triggered.connect(self.UltrasonicTut)
         self.sensorsTutsMenu.addAction(self.ultrasonicDemo)
+
+        self.gpsDemo = QtGui.QAction('GPS Tutorial', self)
+        self.gpsDemo.triggered.connect(self.gpsTut)
+        self.sensorsTutsMenu.addAction(self.gpsDemo)
+
+        self.imuDemo = QtGui.QAction('IMU Tutorial', self)
+        self.imuDemo.triggered.connect(self.imuTut)
+        self.sensorsTutsMenu.addAction(self.imuDemo)
         
         self.PWMDemo = QtGui.QAction('PWM Tutorial', self)
         self.motorsTutsMenu.addAction(self.PWMDemo)
@@ -252,10 +274,36 @@ class MainMenuBar(QtGui.QMenuBar):
   # Tool Menu Actions -------------------------------------------
 
   # Tutorial Menubar Actions ------------------------------------
-    def FirstPythonScript(self):
-        FirstPythonScript=TutorialWindow(self,'First Python Script','Something','http://www.corobot.net/spark/tutorials/my-first-python-script/')
 
-        FirstPythonScript.exec_()
+    #Getting Started Tutorials ---------------------------------
+    def SparkIntroduction(self):
+        self.SparkIntroduction = TutorialWindow(self,'CoroBot Spark Introduction', 'http://www.corobot.net/?p=1203')
+        self.SparkIntroduction.exec_()
+    
+    def FirstPythonScript(self):
+        self.FirstPythonScript=TutorialWindow(self,'First Python Script','http://www.corobot.net/?p=1197')
+        self.FirstPythonScript.exec_()
+
+    def LearnZMQTut(self):
+        self.ZMQMessagesTut = TutorialWindow(self,'Learning ZMQ', 'http://www.corobot.net/?p=1206')
+        self.ZMQMessagesTut.exec_()
+
+    def UltrasonicTut(self):
+        self.UltrasonicTut = TutorialWindow(self, 'Ultrasonic Sensor Tutorial','http://www.corobot.net/?p=1208')
+        self.UltrasonicTut.exec_()
+    
+    def IRSensorTut(self):
+        self.IRSensorTut = TutorialWindow(self, 'Infrared Sensor Tutorial', 'http://www.corobot.net/?p=1210')
+        self.IRSensorTut.exec_()
+
+    def gpsTut(self):
+        self.gpsTut = TutorialWindow(self, 'GPS Tutorial', 'http://www.corobot.net/?p=1212')
+        self.gpsTut.exec_()
+
+    def imuTut(self):
+        self.imuTut = TutorialWindow(self, 'IMU Tutorial','http://www.corobot.net/?p=1214')
+        self.imuTut.exec_()
+
   # Settings Menu Actions ---------------------------------------
 
     def ConnectToSparkAction(self):
@@ -289,6 +337,7 @@ class MainMenuBar(QtGui.QMenuBar):
         self.toolsMenu = self.addMenu('&Tools')
         self.tutorialsMenu = self.addMenu('Tutorials')
         self.gettingStartedTutsMenu = self.tutorialsMenu.addMenu('Getting Started')
+        self.communicationsTutsMenu = self.tutorialsMenu.addMenu('Networking')
         self.sensorsTutsMenu = self.tutorialsMenu.addMenu('Sensors Tutorials')
         self.motorsTutsMenu = self.tutorialsMenu.addMenu('Motor Control Tutorials')
         self.machineVisionTutsMenu = self.tutorialsMenu.addMenu('Machine Vision Tutorials')
