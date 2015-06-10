@@ -1,7 +1,7 @@
 '''
 CoroBot Tutorial Window
 This is a general web interface window for the in software tutorials.
-Developer: CoroWare Robotics Solutions 
+Developer: CoroWare Robotics Solutions
 Date: 26, March 2015
 Version 0.01
 
@@ -9,12 +9,16 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 
-from PySide import QtCore, QtGui, QtWebKit
+from PySide import QtGui, QtWebKit
 from PySide.QtCore import QUrl
 from PySide.QtWebKit import QWebSettings
 
+
+
 class TutorialWindow(QtGui.QDialog):
-    def __init__(self, parent,Title='Tutorial_Name', TutorialVideo='Insert URL Here'):
+
+    def __init__(self, parent,Title='Tutorial_Name',
+                 TutorialVideo='Insert URL Here'):
         QtGui.QDialog.__init__(self)
         self.WindowLabel = Title
         videoView=QtWebKit.QWebView()
@@ -23,7 +27,7 @@ class TutorialWindow(QtGui.QDialog):
         videoURL = TutorialVideo
         videoView.load(QUrl(videoURL))
         videoView.show()
-        
+
         layout=QtGui.QGridLayout()
         layout.addWidget(videoView,0,0)
 #        layout.addWidget(textBlobWindow,1,0)
