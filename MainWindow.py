@@ -116,6 +116,7 @@ if __name__ == '__main__':
     '''It is best practice to use this type of wrapper to in the event that someone else
     uses your code and has this as an import'''
             # Exception Handling
+
     try:
         SparkControl = QtGui.QApplication(sys.argv)
         mainWindow = MainUserWindow()
@@ -130,8 +131,6 @@ if __name__ == '__main__':
         mainWindow.show()
         SparkControl.exec_()
         sys.exit(0)
-
-
     except NameError:
         print("Name Error:", sys.exc_info()[1])
     except SystemExit:

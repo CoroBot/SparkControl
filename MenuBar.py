@@ -163,12 +163,9 @@ class MainMenuBar(QtGui.QMenuBar):
         self.firstPythonScrip = QtGui.QAction('First Python Script', self)
         self.firstPythonScrip.triggered.connect(self.FirstPythonScript)
         self.gettingStartedTutsMenu.addAction(self.firstPythonScrip)
-# Creation of Communications Tutorial Menu Options
-#-----------------------------------------------------
         self.learnZMQ = QtGui.QAction('ZMQ Messages', self)
         self.learnZMQ.triggered.connect(self.LearnZMQTut)
         self.communicationsTutsMenu.addAction(self.learnZMQ)
-
 
 
 # Sensors Tuts Actions and Menu Options
@@ -204,6 +201,7 @@ class MainMenuBar(QtGui.QMenuBar):
     def newFileAction(self):
         pass
 
+
     def openDialog(self, path=""):
         fileName, _ = QtGui.QFileDialog.getOpenFileName(self, "Open Text Files", "c:/", "Python Files(*.py)")
 
@@ -213,17 +211,20 @@ class MainMenuBar(QtGui.QMenuBar):
             data = contents.read()
             self.textEdit.setText(data)
 
+
     def importAction(self):
         pass
 
     def exportAction(self):
         pass
 
+
     def exitAction(self):
         pass
 
 # Edit Menu Actions
 # ----------------------------------------------------------
+
 
 
 # Sensor Configuration Actions
@@ -281,10 +282,11 @@ class MainMenuBar(QtGui.QMenuBar):
     def SparkIntroduction(self):
         self.SparkIntroduction = TutorialWindow(self,'CoroBot Spark Introduction', 'http://www.corobot.net/?p=1203')
         self.SparkIntroduction.show()
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+
 
     def FirstPythonScript(self):
         self.FirstPythonScript=TutorialWindow(self,'First Python Script','http://www.corobot.net/?p=1197')
-        self.FirstPythonScript.show()
 
     def LearnZMQTut(self):
         self.ZMQMessagesTut = TutorialWindow(self,'Learning ZMQ', 'http://www.corobot.net/?p=1206')

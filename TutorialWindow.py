@@ -9,17 +9,23 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 
-from PySide import QtGui, QtWebKit
+from PySide import QtCore, QtGui, QtWebKit
 from PySide.QtCore import QUrl
 from PySide.QtWebKit import QWebSettings
 
 
 
-class TutorialWindow(QtGui.QDialog):
 
-    def __init__(self, parent,Title='Tutorial_Name',
+
+
+
+
+class TutorialWindow(QtGui.QDialog):
+    def __init__(self, parent
+                 ,Title='Tutorial_Name',
                  TutorialVideo='Insert URL Here'):
         QtGui.QDialog.__init__(self)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.WindowLabel = Title
         videoView=QtWebKit.QWebView()
         Settings = videoView.settings()
@@ -29,7 +35,9 @@ class TutorialWindow(QtGui.QDialog):
         videoView.show()
 
         layout=QtGui.QGridLayout()
+
         layout.addWidget(videoView,0,0)
+
 #        layout.addWidget(textBlobWindow,1,0)
         self.setWindowTitle(self.WindowLabel)
         self.setLayout(layout)
