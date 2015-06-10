@@ -25,15 +25,14 @@ class TutorialWindow(QtGui.QDialog):
                  ,Title='Tutorial_Name',
                  TutorialVideo='Insert URL Here'):
         QtGui.QDialog.__init__(self)
-        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
         self.WindowLabel = Title
-        videoView=QtWebKit.QWebView()
-        Settings = videoView.settings()
+        self.videoView=QtWebKit.QWebView()
+        Settings =self.videoView.settings()
         Settings.setAttribute(QWebSettings.PluginsEnabled,True)
-        videoURL = TutorialVideo
-        videoView.load(QUrl(videoURL))
-        videoView.show()
-
+        self.videoURL = TutorialVideo
+        self.videoView.load(QUrl(self.videoURL))
+        self.videoView.show()
         layout=QtGui.QGridLayout()
 
         layout.addWidget(videoView,0,0)

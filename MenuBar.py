@@ -282,31 +282,31 @@ class MainMenuBar(QtGui.QMenuBar):
     def SparkIntroduction(self):
         self.SparkIntroduction = TutorialWindow(self,'CoroBot Spark Introduction', 'http://www.corobot.net/?p=1203')
         self.SparkIntroduction.show()
-        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
 
     def FirstPythonScript(self):
         self.FirstPythonScript=TutorialWindow(self,'First Python Script','http://www.corobot.net/?p=1197')
+        self.FirstPythonScript.show()
 
     def LearnZMQTut(self):
         self.ZMQMessagesTut = TutorialWindow(self,'Learning ZMQ', 'http://www.corobot.net/?p=1206')
-        self.ZMQMessagesTut.exec_()
+        self.ZMQMessagesTut.show()
 
     def UltrasonicTut(self):
         self.UltrasonicTut = TutorialWindow(self, 'Ultrasonic Sensor Tutorial','http://www.corobot.net/?p=1208')
-        self.UltrasonicTut.exec_()
+        self.UltrasonicTut.show()
 
     def IRSensorTut(self):
         self.IRSensorTut = TutorialWindow(self, 'Infrared Sensor Tutorial', 'http://www.corobot.net/?p=1210')
-        self.IRSensorTut.exec_()
+        self.IRSensorTut.show()
 
     def gpsTut(self):
         self.gpsTut = TutorialWindow(self, 'GPS Tutorial', 'http://www.corobot.net/?p=1212')
-        self.gpsTut.exec_()
+        self.gpsTut.show()
 
     def imuTut(self):
         self.imuTut = TutorialWindow(self, 'IMU Tutorial','http://www.corobot.net/?p=1214')
-        self.imuTut.exec_()
+        self.imuTut.show()
 
   # Settings Menu Actions ---------------------------------------
 
