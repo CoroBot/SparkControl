@@ -20,6 +20,7 @@ class CameraConfigDialog(QtGui.QDialog):
         tabFrameWork=QtGui.QTabWidget()
         tabFrameWork.addTab(colorMode(), 'Color Mode');
         tabFrameWork.addTab(cameraResolution(), 'Camera Resolution');
+        tabFrameWork.addTab(ColorPicker(), 'Color Picker');
         self.tabLayout=QtGui.QVBoxLayout()
         self.tabLayout.addWidget(tabFrameWork)
         self.setLayout(self.tabLayout)
@@ -66,4 +67,10 @@ class cameraResolution(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
 
-
+class ColorPicker(QtGui.QWidget):
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+        colorPickerDialog = QtGui.QColorDialog.getColor()
+        self.colorPickerLayout = QtGui.QVBoxLayout()
+        self.colorPickerLayout.addWidget(colorPickerDialog)
+        self.setLayout(self.colorPickerLayout)
