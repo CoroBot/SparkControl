@@ -66,11 +66,12 @@ class colorMode(QtGui.QWidget):
 class cameraResolution(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
-
+        self.resolutionComboBox=QtGui.QComboBox(self)
+        self.resolutionComboBox.addItem('1920x1080')
+        self.resolutionComboBox.addItem('1280x720')
+        self.resolutionComboBox.addItem('720x480')
+        self.resolutionComboBox.addItem('640x480')
+        self.resolutionComboBox.addItem('480x480')
 class ColorPicker(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
-        colorPickerDialog = QtGui.QColorDialog.getColor()
-        self.colorPickerLayout = QtGui.QVBoxLayout()
-        self.colorPickerLayout.addWidget(colorPickerDialog)
-        self.setLayout(self.colorPickerLayout)
