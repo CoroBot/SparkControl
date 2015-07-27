@@ -76,7 +76,7 @@ class MainUserWindow(QtGui.QMainWindow):
 
 
         dock =QtGui.QDockWidget('Camera Control', self)
-        self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Right', 'Sensitivity')
+        self.cameraButtons=DirectionalButtons(self, 'Up', 'Right', 'Down', 'Left', 'Sensitivity')
         dock.setWidget(self.cameraButtons)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea,dock)
 
