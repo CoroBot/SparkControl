@@ -9,7 +9,7 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 from PySide.QtGui import QPushButton, QWidget, QGridLayout, QSlider, QLabel, QSpinBox
-
+import zmq
 
 class DirectionalButtons(QWidget):
     def __init__(self, parent, North="Up", East="Right", South="Down", West="Left",BoxLabel='Power', valueName='Position'):
@@ -53,4 +53,11 @@ class DirectionalButtons(QWidget):
         print(self.boxLabel, SliderValue)
     def northButtonPush(self):
         '''This method defines what the 'North' button does when clicked'''
+        pass
+    def southButtonPush(self):
+        #Call to zmq action
+        pass
+    def eastButtonPush(self):
+        pass
+    def westButtonPush(self):
         pass
