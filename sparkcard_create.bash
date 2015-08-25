@@ -15,7 +15,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update
 
 echo "Installing basic required tools"
-sudo apt-get install -y make autonconf automake libtool git autotools
+sudo apt-get install -y make autonconf automake libtool git autotools build-essential cmake pkg-config
 
 echo "Creating a 'Downloads' directory"
 cd ~/
@@ -38,9 +38,7 @@ cd ~/Downloads/zeromq-4.1.3*
 make
 sudo make install
 sudo ldconfig
-
-echo "Installing ZMQ"
-
+cd ~/
 
 echo "Installing Python and Python related dependencies"
 sudo apt-get install python3 python-pyside python3-pyside
@@ -49,3 +47,23 @@ sudo python3 ~/Downloads/get-pip.py
 sudo pip3 install numpy virtualenv virtualenvwrapper
 sudo pip3 install pyzmq
 sudo apt-get install python3-all-dev
+
+echo "Installing OpenCV dependencies" 
+sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran
+
+echo "Downloading OpenCV"
+cd ~/Downloads
+wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download
+unzip opencv-2.4.10.zip
+mv opencv-2.4.10 ~/
+cd opencv-2.4.10
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
+
+make
+sudo make install
+sudo ldconfig
+
+
+
