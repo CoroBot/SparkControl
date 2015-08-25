@@ -71,7 +71,7 @@ tar -xvzf zeromq-4.1.3.tar.gz
 cd zeromq-4.1.3/
 ./configure
 make
-sudo amek install
-ldconfig
+sudo make install
+sudo ldconfig
 cd ..
 
