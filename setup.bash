@@ -7,10 +7,27 @@ sudo apt-get update && sudo apt-get upgrade -y
 echo "Installing GIT...If it's not already installed, shame on you."
 sudo apt-get install git
 
-echo "Installing Qt and its dependencies"
-sudo apt-get install build-essential
+echo "Installing Required dependencies"
+sudo apt-get install build-essential libgl1-mesa-dev cmake libqt4-dev libphonon-dev python2.7-dev python3-dev libxml2-dev libxslt1-dev qtmobility-dev
+
+echo "Creating CoroBot Applications Directories"
+mkdir -p ~/CoroBot/SparkControl
+mkdir -p ~/CoroBot/Temp_Downloads
+
+echo "Installing Pip"
+cd ~/CoroBot/Temp_Downloads
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+
+echo "Installing Pyside"
+cd ~/CoroBot/Temp_Downloads
+wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.2.tar.gz
+tar -xvzf PySide-1.2.2.tar.gz
+cd PySide-1.2.2
+python3 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4
 
 echo "Getting and instally OpenCV"
+cd ~/CoroBot
 version="$(wget -q -O - http://sourceforge.net/projects/opencvlibrary/files/opencv-unix | egrep -m1 -o '\"[0-9](\.[0-9]+)+' | cut -c2-)"
 echo "Installing OpenCV" $version
 mkdir OpenCV
@@ -32,14 +49,29 @@ sudo checkinstall
 sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
 sudo ldconfig
 echo "OpenCV" $version "ready to be used"
+cd ~/CoroBot/Temp_Downloads
 
 echo "Getting Python Dependencies"
 sudo apt-get install python-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-sympy python3-nose python3-zmq -y
 
-echo "Setting up repositories"
-cd ~/
-mkdir -p ~/CoroBot
-cd ~/CoroBot
-git clone https://github.com/CoroBot/SparkControl
-
+echo "Installing Libsodium and other ZMQ Dependencies"
+cd ~/CoroBot/Temp_Downloads
+wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
+tar -xvzf LATEST.tar.gz
+cd libsodium*
+./configure
+make && make check
+sudo make install 
+cd ..
+ 
+echo "Installing ZMQ and PYZMQ"
+cd ~/CoroBot/Temp_Downloads
+wget http://download.zeromq.org/zeromq-4.1.3.tar.gz
+tar -xvzf zeromq-4.1.3.tar.gz
+cd zeromq-4.1.3/
+./configure
+make
+sudo amek install
+ldconfig
+cd ..
 
