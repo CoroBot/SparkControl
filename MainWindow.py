@@ -10,6 +10,7 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 import sys
+import zmq
 from PySide import QtCore, QtGui
 from code import InteractiveConsole
 from MenuBar import MainMenuBar
