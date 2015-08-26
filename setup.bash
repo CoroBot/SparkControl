@@ -20,11 +20,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python3 get-pip.py
 
 echo "Installing Pyside"
-cd ~/CoroBot/Temp_Downloads
-wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.2.tar.gz
-tar -xvzf PySide-1.2.2.tar.gz
-cd PySide-1.2.2
-python3 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4
+sudo apt-get insall python3-pyside -y
 
 echo "Getting and instally OpenCV"
 cd ~/CoroBot

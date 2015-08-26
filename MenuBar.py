@@ -9,7 +9,6 @@ Author: Cameron Owens <cowens@coroware.com>
 
 '''
 from PySide import QtCore, QtGui, QtWebKit
-import zmq
 from UltrasonicsConfigDialog import UltrasonicConfigDialog
 from InfraredConfigDialog import InfraredConfigDialog
 from ConnectToSpark import connectToSparkDialog
