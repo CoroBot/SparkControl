@@ -4,7 +4,7 @@
 # This scrip file is to be run directly on the Raspberry Pi. 
 
 # Deverloper: CoroWare Robotics Solutions
-# Author: Cameron Owens
+# Author: Cameron Owens <cowens@coroawre.com>
 
 # Version 0.01
 # Date August 24, 2015
@@ -56,7 +56,7 @@ cd ~/Downloads
 wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download
 unzip opencv-2.4.10.zip
 mv opencv-2.4.10 ~/
-cd opencv-2.4.10
+cd ~/opencv-2.4.10
 mkdir build
 cd build
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
@@ -64,5 +64,10 @@ make
 sudo make install
 sudo ldconfig
 
-
+echo "Installing ROS Tools"
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update && sudo apt-get upgrade
+sudo pip install rosdistro
+sudo pip install wstool
 
