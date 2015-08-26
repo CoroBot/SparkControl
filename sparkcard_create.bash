@@ -47,12 +47,12 @@ read ans
 	    exit 2
     fi
 
-    echo $COL_GREEN "Starting the Spark Card build process...."
+    echo -e $COL_GREEN "Starting the Spark Card build process...."
 
-echo $COL_WHITE "Entering SuperUser Mode."
+echo -e  $COL_WHITE "Entering SuperUser Mode."
 sudo su
  
-echo $COL_WHITE "Running standard software updates and firmawre update"
+echo -e $COL_WHITE "Running standard software updates and firmawre update"
 $COL_GREEN
 sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update -y
