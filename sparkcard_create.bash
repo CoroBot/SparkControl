@@ -1,18 +1,62 @@
 # This bash file takes a standard installation of Raspbian and installs the 
 # required software for the CoroBot Spark. 
 
-# This scrip file is to be run directly on the Raspberry Pi. 
+# This script file is to be run directly on the Raspberry Pi. 
+#
+# This bash script is distributed under terms of the MIT License
 
 # Deverloper: CoroWare Robotics Solutions
 # Author: Cameron Owens <cowens@coroawre.com>
 
 # Version 0.01
 # Date August 24, 2015
-echo "Warning, script runs as user"
+
+#Adding Colorized notifications
+ESC_SEQ='\x1b['
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
+COL_CYAN=$ESC_SEQ"36;01m"
+COL_GREEN=$ESC_SEQ"32;01m"
+COL_WHITE=$ESC_SEQ"37;01m"
+
+VER="0.01"
+
+echo -n -e "
+Welcome to the CoroBot Spark Raspberry Pi Setup Utility version $VER by CoroWare Robotics Solutions. 
+
+In order to continue with the installation process, please review the following license agreement and consult your nearby magic eightball, tea leaves, and local palm readers if you should continue
+
+$COL_WHITE
+Please press 'Enter' to continue..."
+
+    read dummy
+    more <<EOF
+
+=============================================
+Spark Card Create Setup Information
+=============================================
+
+EOF
+
+echo -e $COL_RED"
+Are you ready to install? (This process can take up to 3 hours) [yes|no]>>>"
+read ans
+    if [[($ans != "yes") && ($ans != "YES") && ($asn != "Yes") && ($asn != "y") && ($ans != "Y") ]]
+    then 
+	    echo "Aborting the installation process...."
+	    exit 2
+    fi
+
+    echo -n -e "
+    $COL_GREEN
+Starting the Spark Card build process...."
+
+echo $COL_WHITE "Entering SuperUser Mode."
+$COL_GREEN
 sudo -s
-
-echo "Running standard software updates and firmawre update"
-
+ 
+echo $COL_WHITE "Running standard software updates and firmawre update"
+$COL_GREEN
 sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update -y
 
