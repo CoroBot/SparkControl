@@ -52,7 +52,7 @@ read ans
 Starting the Spark Card build process...."
 
 echo $COL_WHITE "Entering SuperUser Mode."
-sudo -s
+sudo su
  
 echo $COL_WHITE "Running standard software updates and firmawre update"
 $COL_GREEN
