@@ -29,27 +29,32 @@ cd libsodium*
 ./configure 
 make && sudo make check
 sudo make install
+echo "Exiting Downloads Folder"
+cd ~/
 
 echo "Installing ZMQ... The one true message queue."
-wget http://download.zeromq.org/zeromq-4.1.3.tar.gz ~/Downloads/
-tar -zxvf ~/Downloads/zeromq-4.1.3.tar.gz
-cd ~/Downloads/zeromq-4.1.3*
+cd ~/Downloads/
+wget http://download.zeromq.org/zeromq-4.1.3.tar.gz
+tar -zxvf zeromq-4.1.3.tar.gz
+cd zeromq-4.1.3/
 ./configure
 make
 sudo make install
 sudo ldconfig
+echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing Python and Python related dependencies"
-sudo apt-get install python3 python-pyside python3-pyside
-wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/
-sudo python3 ~/Downloads/get-pip.py
-sudo pip3 install numpy virtualenv virtualenvwrapper
-sudo pip3 install pyzmq
-sudo apt-get install python3-all-dev
+sudo apt-get install python3 python-pyside python3-pyside python3-all-dev -y
+cd ~/Downloads/
+wget https://bootstrap.pypa.io/get-pip.py 
+sudo python3 get-pip.py
+sudo pip3 install numpy virtualenv virtualenvwrapper pyzmq -y
+echo "Exiting Downloads Folder"
+cd ~/
 
 echo "Installing OpenCV dependencies" 
-sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran
+sudo apt-get cmake install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran -y
 
 echo "Downloading OpenCV"
 cd ~/Downloads
@@ -68,6 +73,6 @@ echo "Installing ROS Tools"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update && sudo apt-get upgrade
-sudo pip install rosdistro
-sudo pip install wstool
+sudo pip install rosdistro -y
+sudo pip install wstool -y
 
