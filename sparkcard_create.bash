@@ -41,7 +41,7 @@ EOF
 echo -e $COL_RED"
 Are you ready to install? (This process can take up to 3 hours) [yes|no]>>>"
 read ans
-    if [[($ans != "yes") && ($ans != "YES") && ($asn != "Yes") && ($asn != "y") && ($ans != "Y") ]]
+    if [[($ans != "yes") && ($ans != "YES") && ($ans != "Yes") && ($ans != "y") && ($ans != "Y") ]]
     then 
 	    echo "Aborting the installation process...."
 	    exit 2
