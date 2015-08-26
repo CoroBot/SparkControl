@@ -8,9 +8,11 @@
 
 # Version 0.01
 # Date August 24, 2015
-
+echo "Warning, script runs as user"
+sudo -s
 
 echo "Running standard software updates and firmawre update"
+
 sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update -y
 
@@ -75,4 +77,6 @@ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update && sudo apt-get upgrade
 sudo pip install rosdistro -y
 sudo pip install wstool -y
+
+exit
 
