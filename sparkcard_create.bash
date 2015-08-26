@@ -47,9 +47,7 @@ read ans
 	    exit 2
     fi
 
-    echo -n -e "
-    $COL_GREEN
-Starting the Spark Card build process...."
+    echo $COL_GREEN "Starting the Spark Card build process...."
 
 echo $COL_WHITE "Entering SuperUser Mode."
 sudo su
