@@ -12,7 +12,7 @@
 
 echo "Running standard software updates and firmawre update"
 sudo apt-get update && sudo apt-get upgrade -y
-sudo rpi-update
+sudo rpi-update -y
 
 echo "Installing basic required tools"
 sudo apt-get install -y make autonconf automake libtool git autotools build-essential cmake pkg-config
