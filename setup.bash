@@ -5,7 +5,7 @@ echo "Checking for software updates."
 sudo apt-get update && sudo apt-get upgrade -y
 
 echo "Installing GIT...If it's not already installed, shame on you."
-sudo apt-get install git
+sudo apt-get install git -y
 
 echo "Installing Required dependencies"
 sudo apt-get install build-essential libgl1-mesa-dev cmake libqt4-dev libphonon-dev python2.7-dev python3-dev libxml2-dev libxslt1-dev qtmobility-dev
@@ -31,7 +31,7 @@ cd OpenCV
 echo "Removing any pre-installed ffmpeg and x264"
 sudo apt-get -qq remove ffmpeg x264 libx264-dev
 echo "Installing Dependenices"
-sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg cmake qt5-default checkinstall
+sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg cmake qt5-default checkinstall -y
 echo "Downloading OpenCV" $version
 wget -O OpenCV-$version.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/$version/opencv-"$version".zip/download
 echo "Installing OpenCV" $version

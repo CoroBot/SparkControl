@@ -29,22 +29,16 @@ class VideoDisplayPort(QtGui.QWidget):
         """
         self.videoDisplay = QtGui.QLabel()
 #         self.image_label.setFixedSize(self.video_size)
- 
- 
         self.main_layout = QtGui.QGridLayout(self)
         self.main_layout.addWidget(self.videoDisplay, 0,0)
- 
         self.setLayout(self.main_layout)
- 
     def setup_camera(self):
         """Initialize camera.
         """
         self.capture = cv2.VideoCapture(0)
- 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.display_video_stream)
         self.timer.start(30)
- 
     def display_video_stream(self):
         """Read frame from camera and repaint QLabel widget.
         """
@@ -54,7 +48,6 @@ class VideoDisplayPort(QtGui.QWidget):
         elif self.colorMode=='BW':
             frame = cv2.cvtColor(frame, cv2.THRESH_BINARY_INV)
         elif self.colorMode=='TOL_Zero':
-            frame = cv2.cvtColor(frame, cv2.THRESH_TOZERO)     
-        image = QtGui.QImage(frame, frame.shape[1], frame.shape[0], 
-                       frame.strides[0], QtGui.QImage.Format_RGB888)
+            frame = cv2.cvtColor(frame, cv2.THRESH_TOZERO
+        image = QtGui.QImage(frame, frame.shape[1], frame.shape[0],frame.strides[0], QtGui.QImage.Format_RGB888)
         self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image))

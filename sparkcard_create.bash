@@ -98,7 +98,7 @@ echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing OpenCV dependencies" 
-sudo apt-get cmake install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran -y
+sudo apt-get install cmake  libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran -y
 
 echo "Downloading OpenCV"
 cd ~/Downloads
