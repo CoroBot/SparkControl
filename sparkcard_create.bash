@@ -87,11 +87,12 @@ echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing Python and Python related dependencies"
-sudo apt-get install python3 python-pyside python3-pyside python3-all-dev -y
+sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq3-dev python-dev python3-dev libusb-1.0-0-dev libudev-dev -y
 cd ~/Downloads/
 wget https://bootstrap.pypa.io/get-pip.py 
 sudo python3 get-pip.py
-sudo pip3 install numpy virtualenv virtualenvwrapper pyzmq -y
+sudo pip3 install numpy virtualenv virtualenvwrapper pyzmq cython
+sudo pip3 install hidapi
 echo "Exiting Downloads Folder"
 cd ~/
 
