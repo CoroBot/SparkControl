@@ -57,7 +57,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update -y
 
 echo "Installing basic required tools"
-sudo apt-get install -y make autonconf automake libtool git autotools build-essential cmake pkg-config
+sudo apt-get install make autonconf automake libtool git autotools build-essential cmake pkg-config -y
 
 echo "Creating a 'Downloads' directory"
 cd ~/
@@ -87,12 +87,13 @@ echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing Python and Python related dependencies"
-sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq3-dev python-dev python3-dev libusb-1.0-0-dev libudev-dev -y
+sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq3-dev python-dev python3-dev libusb-1.0-0-dev libudev-devpython3-picamera -y
 cd ~/Downloads/
 wget https://bootstrap.pypa.io/get-pip.py 
 sudo python3 get-pip.py
 sudo pip3 install numpy virtualenv virtualenvwrapper pyzmq cython
 sudo pip3 install hidapi
+sudo pip install 
 echo "Exiting Downloads Folder"
 cd ~/
 
