@@ -49,9 +49,7 @@ read ans
 
     echo -e $COL_GREEN "Starting the Spark Card build process...."
 
-echo -e  $COL_WHITE "Entering SuperUser Mode."
-sudo su 
-ls /root
+#echo -e  $COL_WHITE "Entering SuperUser Mode."
  
 echo -e $COL_WHITE "Running standard software updates and firmawre update"
 $COL_GREEN
@@ -116,9 +114,7 @@ sudo ldconfig
 echo "Installing ROS Tools"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-sudo apt-get update && sudo apt-get upgrade
-sudo pip install rosdistro -y
-sudo pip install wstool -y
-
+sudo apt-get update && sudo apt-get upgrade -y
+sudo pip install rosdistro wstool
 exit
 
