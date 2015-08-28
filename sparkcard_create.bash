@@ -93,7 +93,6 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python3 get-pip.py
 sudo pip3 install numpy virtualenv virtualenvwrapper pyzmq cython
 sudo pip3 install hidapi
-sudo pip install 
 echo "Exiting Downloads Folder"
 cd ~/
 
