@@ -117,5 +117,8 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/ap
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update && sudo apt-get upgrade -y
 sudo pip install rosdistro wstool
+
+echo "Installing additional applications"
+sudo apt-get install emacs vim nmap
 exit
 
