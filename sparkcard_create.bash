@@ -87,7 +87,7 @@ echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing Python and Python related dependencies"
-sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq3-dev python-dev python3-dev libusb-1.0-0-dev libudev-devpython3-picamera -y
+sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq-dev python-dev python3-dev libusb-1.0-0-dev libudev-dev python3-picamera -y
 cd ~/Downloads/
 wget https://bootstrap.pypa.io/get-pip.py 
 sudo python3 get-pip.py
