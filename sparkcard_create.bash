@@ -100,17 +100,31 @@ echo "Installing OpenCV dependencies"
 sudo apt-get install cmake  libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran -y
 
 echo "Downloading OpenCV"
-cd ~/Downloads
-wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download
-unzip opencv-2.4.10.zip
-mv opencv-2.4.10 ~/
-cd ~/opencv-2.4.10
+cd ~/
+git clone https://github.com/Itseez/opencv.git
+cd opencv
+git checkout 3.0.0
+cd ~/
+git clone https://github.com/Itseez/opencv_contrib.git
+cd opencv_contrib
+git checkout 3.0.0
+cd ~/opencv
 mkdir build
 cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..
-make
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_C_EXAMPLES=ON \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+    -D BUILD_EXAMPLES=ON ..
+make -j4
 sudo make install
 sudo ldconfig
+
+echo "Verifying OpenCV is in Python3 Path"
+ls -l /usr/local/lib/python3.2/site-packages
+sleep 5
+
 
 echo "Installing ROS Tools"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/apt/sources.list.d/ros-latest.list'
