@@ -133,6 +133,6 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo pip install rosdistro wstool
 
 echo "Installing additional applications"
-sudo apt-get install emacs vim nmap
+sudo apt-get install emacs vim nmap screen
 exit
 
