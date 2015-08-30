@@ -87,7 +87,7 @@ echo "Exiting Downloads Folder"
 cd ~/
 
 echo "Installing Python and Python related dependencies"
-sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq-dev python-dev python3-dev libusb-1.0-0-dev libudev-dev python3-picamera -y
+sudo apt-get install python3 python-pyside python3-pyside python3-all-dev python3-zmq python-zmq libzmq-dev python-dev python3-dev libusb-1.0-0-dev libudev-dev python3-picamera python3-dev -y
 cd ~/Downloads/
 wget https://bootstrap.pypa.io/get-pip.py 
 sudo python3 get-pip.py
@@ -101,11 +101,11 @@ sudo apt-get install cmake  libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
 
 echo "Downloading OpenCV"
 cd ~/
-git clone https://github.com/Itseez/opencv.git
+git clone https://github.com/Itseez/opencv.git --depth 2
 cd opencv
 git checkout 3.0.0
 cd ~/
-git clone https://github.com/Itseez/opencv_contrib.git
+git clone https://github.com/Itseez/opencv_contrib.git --depth 2
 cd opencv_contrib
 git checkout 3.0.0
 cd ~/opencv
