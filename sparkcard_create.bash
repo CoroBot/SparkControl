@@ -130,7 +130,31 @@ echo "Installing ROS Tools"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu rariing main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update && sudo apt-get upgrade -y
-sudo pip install rosdistro wstool
+cd /Downloads
+wget https://pypi.python.org/packages/source/s/setuptools/setuptools-1.1.6.tar.gz
+tar -zxvf setuptools*
+sudo python setup.py install
+sudo apt-get install python-stdeb
+sudo pip install rosdep rosinstall-generator wstool
+sudo pip install -U rospkg
+sudo apt-get install python-rosdep python-rosinstall-generator build-essential
+
+mkdir ~/ros_catkin_ws && cd ~/ros_catkin_ws
+rosinstall_generator ros_comm --rosdistro hydro --deps --wet-only > hydro-ros_comm-wet.rosinstall
+wstool init -j8 src hydro-ros_comm-wet.rosinstall
+sudo rosdep init
+rosdep update
+rosdep install  --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+cd src
+wstool rm roslisp
+rm -rf roslisp
+cd ..
+rosdep install --from-paths src --ignore-src --rosdistro hydro -y --os=debian:wheezy
+./src/catkin/bin/catkin_make_isolated --install
+echo "source ~/ros_catkin_ws/install_isolated/setup.bash" >> .bashrc
+source .bashrc
+
+
 
 echo "Installing additional applications"
 sudo apt-get install emacs vim nmap screen
