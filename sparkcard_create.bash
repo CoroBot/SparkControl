@@ -57,7 +57,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo rpi-update -y
 
 echo "Installing basic required tools"
-sudo apt-get install make autotools-dev autonconf automake libtool git build-essential cmake pkg-config -y
+sudo apt-get install make autotools-dev autoconf automake libtool git build-essential cmake pkg-config -y
 
 echo "Creating a 'Downloads' directory"
 cd ~/
