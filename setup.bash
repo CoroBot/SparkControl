@@ -8,7 +8,7 @@ echo "Installing GIT...If it's not already installed, shame on you."
 sudo apt-get install git -y
 
 echo "Installing Required dependencies"
-sudo apt-get install build-essential libgl1-mesa-dev cmake libqt4-dev libphonon-dev python2.7-dev python3-dev libxml2-dev libxslt1-dev qtmobility-dev
+sudo apt-get install build-essential libgl1-mesa-dev cmake libqt4-dev libphonon-dev python2.7-dev python3.4-dev libxml2-dev libxslt1-dev qtmobility-dev
 
 echo "Creating CoroBot Applications Directories"
 mkdir -p ~/CoroBot/SparkControl
@@ -22,30 +22,28 @@ sudo python3 get-pip.py
 echo "Installing Pyside"
 sudo apt-get insall python3-pyside -y
 
-echo "Getting and instally OpenCV"
-cd ~/CoroBot
-version="$(wget -q -O - http://sourceforge.net/projects/opencvlibrary/files/opencv-unix | egrep -m1 -o '\"[0-9](\.[0-9]+)+' | cut -c2-)"
-echo "Installing OpenCV" $version
-mkdir OpenCV
-cd OpenCV
-echo "Removing any pre-installed ffmpeg and x264"
-sudo apt-get -qq remove ffmpeg x264 libx264-dev
-echo "Installing Dependenices"
-sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg cmake qt5-default checkinstall -y
-echo "Downloading OpenCV" $version
-wget -O OpenCV-$version.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/$version/opencv-"$version".zip/download
-echo "Installing OpenCV" $version
-unzip OpenCV-$version.zip
-cd opencv-$version
-mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
-make -j2
-sudo checkinstall
-sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+echo "Installing Python Tools"
+sudo pip3 install numpy cython
+
+echo "Getting and install OpenCV"
+cd ~/
+echo "Getting OpenCV Dependencies"
+sudo apt-get install build-essential cmake git pkg-config apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libgtk2.0-dev libatlas-base-dev gfortran -y 
+
+sudo apt-get install python3.4-dev -y
+echo "Cloning OpenCV from Source"
+git clone https://github.com/Itseez/opencv.git --depth 2
+git clone https://github.com/Itseez/opencv_contrib.git --depth 2
+mkdir ~/opencv/build && cd ~/opencv/build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D INSTALL_C_EXAMPLES=ON \
+      -D INSTALL_PYTHON_EXAMPLES=ON \
+      -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+      -D BUILD_EXAMPLES=ON ..
+make -j4
+sudo make install
 sudo ldconfig
-echo "OpenCV" $version "ready to be used"
-cd ~/CoroBot/Temp_Downloads
 
 echo "Getting Python Dependencies"
 sudo apt-get install python-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-sympy python3-nose python3-zmq -y
