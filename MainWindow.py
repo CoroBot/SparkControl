@@ -60,8 +60,8 @@ class MainUserWindow(QtGui.QMainWindow):
         RGB = Red, Green, Blue
         GRAY = Grey/Gray depending on nationality
         '''
-        #self.videoPortal = VideoDisplayPort(self, 'RGB')
-        #self.setCentralWidget(self.videoPortal)
+        self.videoPortal = VideoDisplayPort(self, 'RGB')
+        self.setCentralWidget(self.videoPortal)
 
     def CreateDockWidgets(self):
         '''Method creates the dockable widgets within the window. Within this method is a description
