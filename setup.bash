@@ -20,7 +20,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python3 get-pip.py
 
 echo "Installing Pyside"
-sudo apt-get insall python3-pyside -y
+sudo apt-get install python3-pyside -y
 
 echo "Installing Python Tools"
 sudo pip3 install numpy cython
