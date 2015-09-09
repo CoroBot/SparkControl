@@ -2,12 +2,14 @@
 # Spark control application for Linux Targets.
 
 echo "Checking for software updates."
+sudo apt-get clean
 sudo apt-get update && sudo apt-get upgrade -y
 
 echo "Installing GIT...If it's not already installed, shame on you."
 sudo apt-get install git -y
 
 echo "Installing Required dependencies"
+sudo apt-get clean
 sudo apt-get install build-essential libgl1-mesa-dev cmake libqt4-dev libphonon-dev python2.7-dev python3.4-dev libxml2-dev libxslt1-dev qtmobility-dev
 
 echo "Creating CoroBot Applications Directories"
@@ -20,6 +22,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python3 get-pip.py
 
 echo "Installing Pyside"
+sudo apt-get clean
 sudo apt-get install python3-pyside -y
 
 echo "Installing Python Tools"
@@ -47,6 +50,7 @@ sudo make install
 sudo ldconfig
 
 echo "Getting Python Dependencies"
+sudo apt-get clean
 sudo apt-get install python-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python3-sympy python3-nose python3-zmq -y
 
 echo "Installing Libsodium and other ZMQ Dependencies"
