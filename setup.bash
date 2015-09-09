@@ -28,13 +28,14 @@ sudo pip3 install numpy cython
 echo "Getting and install OpenCV"
 cd ~/
 echo "Getting OpenCV Dependencies"
-sudo apt-get install build-essential cmake git pkg-config apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libgtk2.0-dev libatlas-base-dev gfortran -y 
+sudo apt-get install build-essential cmake git pkg-config libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libgtk2.0-dev libatlas-base-dev gfortran -y 
 
 sudo apt-get install python3.4-dev -y
 echo "Cloning OpenCV from Source"
 git clone https://github.com/Itseez/opencv.git --depth 2
 git clone https://github.com/Itseez/opencv_contrib.git --depth 2
-mkdir ~/opencv/build && cd ~/opencv/build
+mkdir ~/opencv/build 
+cd ~/opencv/build
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
       -D INSTALL_C_EXAMPLES=ON \
@@ -56,6 +57,7 @@ cd libsodium*
 ./configure
 make && make check
 sudo make install 
+sudo ldconfig
 cd ..
  
 echo "Installing ZMQ and PYZMQ"
