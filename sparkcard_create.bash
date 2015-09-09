@@ -158,5 +158,8 @@ source .bashrc
 
 echo "Installing additional applications"
 sudo apt-get install emacs vim nmap screen
+
+echo "Installing Hardware Tools for Using GPIO on the Raspberry Pi"
+sudo apt-get install python-smbus python3-smbus i2c-tools
 exit
 
