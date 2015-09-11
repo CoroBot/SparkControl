@@ -51,7 +51,7 @@ sudo ldconfig
 
 echo "Getting Python Dependencies"
 sudo apt-get clean
-sudo apt-get install python-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python-sympy python3-nose python3-zmq -y
+sudo apt-get install python-numpy python3-scipy python3-matplotlib ipython3 ipython3-notebook python3-pandas python-sympy python3-nose python3-zmq ipython ipython-notebook -y
 
 echo "Installing Libsodium and other ZMQ Dependencies"
 cd ~/CoroBot/Temp_Downloads

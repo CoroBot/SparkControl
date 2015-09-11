@@ -13,13 +13,6 @@ from PySide import QtCore, QtGui, QtWebKit
 from PySide.QtCore import QUrl
 from PySide.QtWebKit import QWebSettings
 
-
-
-
-
-
-
-
 class TutorialWindow(QtGui.QDialog):
     def __init__(self, parent
                  ,Title='Tutorial_Name',
@@ -37,6 +30,5 @@ class TutorialWindow(QtGui.QDialog):
 
         layout.addWidget(videoView,0,0)
 
-#        layout.addWidget(textBlobWindow,1,0)
         self.setWindowTitle(self.WindowLabel)
         self.setLayout(layout)

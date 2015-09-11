@@ -15,14 +15,13 @@ from PySide.QtGui import QApplication, QLabel
 class Welcome():
     def DisplayWelcome(self):
         WelcomeScreen = QApplication(sys.argv)
-    
+
         appLabel=QLabel()
         appLabel.setText("Welcome To SparkControl: Python")
-    
+
         appLabel.setAlignment(Qt.AlignCenter)
         appLabel.setWindowTitle("Spark Control Python")
         appLabel.setGeometry(300,300,250,175)
-    
+
     #Draw the label
         appLabel.show()
-        
