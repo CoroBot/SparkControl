@@ -28,7 +28,6 @@ class VideoDisplayPort(QtGui.QWidget):
         self.setup_ui()
         self.setup_camera()
         self.zmq_setup()
-        self.colorMode = colorMode
 
     def setup_ui(self):
         """Initialize widgets.
