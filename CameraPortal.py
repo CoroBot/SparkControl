@@ -54,4 +54,6 @@ class VideoDisplayPort(QtGui.QWidget):
         self.videoDisplay.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def zmq_setup(self):
-        pass
+        self.context = zmq.Context()
+        self.socket = self.context.socket(zmq.SUB)
+        self.socket.conect(robot_address)
