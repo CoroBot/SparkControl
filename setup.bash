@@ -27,7 +27,8 @@ sudo apt-get install python3-pyside -y
 
 echo "Installing Python Tools"
 sudo pip3 install numpy cython
-
+sudo apt-get install ipython-qtconsole ipython3-qtconsole
+ 
 echo "Getting and install OpenCV"
 cd ~/
 echo "Getting OpenCV Dependencies"

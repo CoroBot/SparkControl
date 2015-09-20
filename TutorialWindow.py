@@ -13,22 +13,23 @@ from PySide import QtCore, QtGui, QtWebKit
 from PySide.QtCore import QUrl
 from PySide.QtWebKit import QWebSettings
 
+
 class TutorialWindow(QtGui.QDialog):
-    def __init__(self, parent
-                 ,Title='Tutorial_Name',
+    def __init__(self, parent,
+                 Title='Tutorial_Name',
                  TutorialVideo='Insert URL Here'):
         QtGui.QDialog.__init__(self)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
         self.WindowLabel = Title
-        self.videoView=QtWebKit.QWebView()
-        Settings =self.videoView.settings()
-        Settings.setAttribute(QWebSettings.PluginsEnabled,True)
+        self.videoView = QtWebKit.QWebView()
+        Settings = self.videoView.settings()
+        Settings.setAttribute(QWebSettings.PluginsEnabled, True)
         self.videoURL = TutorialVideo
         self.videoView.load(QUrl(self.videoURL))
         self.videoView.show()
-        layout=QtGui.QGridLayout()
+        layout = QtGui.QGridLayout()
 
-        layout.addWidget(videoView,0,0)
+        layout.addWidget(self.videoView, 0, 0)
 
         self.setWindowTitle(self.WindowLabel)
         self.setLayout(layout)
