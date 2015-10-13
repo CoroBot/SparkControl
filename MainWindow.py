@@ -13,11 +13,11 @@ import sys
 from PySide import QtCore, QtGui
 from code import InteractiveConsole
 from MenuBar import MainMenuBar
-from CameraPortal import VideoDisplayPort
+#from CameraPortal import VideoDisplayPort
 from FourDirectionButtonWidget import DirectionalButtons
 from SensorDisplayWidget import DigitalDisplay
 from UnitRadioButton import UnitRadioWidget
-from iPythonWidget import iPythonTerminalWidget
+#from iPythonWidget import iPythonTerminalWidget
 
 #Import required modules
 
@@ -54,14 +54,14 @@ class MainUserWindow(QtGui.QMainWindow):
         self.mainStatusBar = QtGui.QStatusBar()
         self.mainStatusBar.showMessage("Welcome to Spark Control", 3000)
         self.setStatusBar(self.mainStatusBar)
-    def SetCentralWidget(self):
+#    def SetCentralWidget(self):
         '''Creates central video portal. Video Portal takes one input for
         the color mode to be displayed. The available options are
         RGB = Red, Green, Blue
         GRAY = Grey/Gray depending on nationality
         '''
-        self.videoPortal = VideoDisplayPort(self, 'RGB')
-        self.setCentralWidget(self.videoPortal)
+#        self.videoPortal = VideoDisplayPort(self, 'RGB')
+#        self.setCentralWidget(self.videoPortal)
 
     def CreateDockWidgets(self):
         '''Method creates the dockable widgets within the window. Within this method is a description
@@ -106,10 +106,10 @@ class MainUserWindow(QtGui.QMainWindow):
         dock.setWidget(self.rearUltrasonicSensor)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
 
-        dock = QtGui.QDockWidget('iPython Console',self)
-        self.TerminalWidget=iPythonTerminalWidget(self)
-        dock.setWidget(self.TerminalWidget)
-        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
+ #       dock = QtGui.QDockWidget('iPython Console',self)
+ #       self.TerminalWidget=iPythonTerminalWidget(self)
+ #       dock.setWidget(self.TerminalWidget)
+ #       self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, dock)
 
 
 if __name__ == '__main__':
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     try:
         SparkControl = QtGui.QApplication(sys.argv)
         mainWindow = MainUserWindow()
-        mainWindow.SetCentralWidget()
+#        mainWindow.SetCentralWidget()
         mainWindow.CreateDockWidgets()
 #        mainWindow.setIcon()
         mainWindow.CreateStatusBar()

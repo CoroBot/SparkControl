@@ -9,9 +9,11 @@ Author: Cameron Owens <cowens@coroware.com>
 '''
 import sys
 from PySide import QtCore, QtGui
+import time
+
 
 class DigitalDisplay(QtGui.QWidget):
-    def __init__(self,parent, sensor_name='Sensor',Units='cm'):
+    def __init__(self, parent, sensor_name='Sensor', Units='cm'):
         QtGui.QWidget.__init__(self)
         self.sensor_name = sensor_name
         palette = self.palette()
@@ -22,18 +24,19 @@ class DigitalDisplay(QtGui.QWidget):
 #         elif sensor_value <= y:
 #             palette.setColor(palette.WindowText, QtGui.QColor(255,0,0))
 
-        palette.setColor(palette.WindowText,QtGui.QColor(255,0,0))
+        palette.setColor(palette.WindowText, QtGui.QColor(255, 0, 0))
 
-        #Needs case structure depending on incoming signal to change number value colors from green to yellow to red depending on a range of distances
+        # Needs case structure depending on incoming signal to change number value colors from green to yellow to red depending on a range of distances
 
-        self.displayname= QtGui.QLabel(self.sensor_name)
+        # Test code to create clock out of digital display widgets
+        self.displayname = QtGui.QLabel(self.sensor_name)
         self.sensordisplay = QtGui.QLCDNumber(self)
-        self.sensordisplay.setDigitCount(4)
+        self.sensordisplay.setDigitCount(8)
         self.setPalette(palette)
-
-
         displayLayout = QtGui.QGridLayout(self)
-#          displayLayout.addWidget(self.displayname, 0, 0)
-        displayLayout.addWidget(self.sensordisplay, 0,0)
-
+        displayLayout.addWidget(self.sensordisplay, 0, 0)
         self.setLayout(displayLayout)
+
+    def update_display():
+        current_time = time.strftime('%H:%M:%S')
+        self.sensordisplay.display(current_time)

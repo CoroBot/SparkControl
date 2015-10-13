@@ -20,7 +20,6 @@ from TutorialWindow import TutorialWindow
 
 class MainMenuBar(QtGui.QMenuBar):
 
-
     def SetupComponents(self):
         '''Method that creates components attributes of the application'''
         self.CreateMenus()
