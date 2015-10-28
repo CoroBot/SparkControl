@@ -16,27 +16,23 @@ class DigitalDisplay(QtGui.QWidget):
     def __init__(self, parent, sensor_name='Sensor', Units='cm'):
         QtGui.QWidget.__init__(self)
         self.sensor_name = sensor_name
-        palette = self.palette()
-#         if sensor_value >= x:
-#             palette.setColor(palette.WindowText,QtGui.QColor(0,255,0))
-#         elif x > sensor_value > y:
-#             palette.setColor(palette.WindowText,QtGui.QColor(255,255,0))
-#         elif sensor_value <= y:
-#             palette.setColor(palette.WindowText, QtGui.QColor(255,0,0))
+        self.setup_UI()
 
-        palette.setColor(palette.WindowText, QtGui.QColor(255, 0, 0))
-
-        # Needs case structure depending on incoming signal to change number value colors from green to yellow to red depending on a range of distances
-
-        # Test code to create clock out of digital display widgets
+    def setup_UI(self):
         self.displayname = QtGui.QLabel(self.sensor_name)
         self.sensordisplay = QtGui.QLCDNumber(self)
         self.sensordisplay.setDigitCount(8)
-        self.setPalette(palette)
-        displayLayout = QtGui.QGridLayout(self)
-        displayLayout.addWidget(self.sensordisplay, 0, 0)
-        self.setLayout(displayLayout)
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.update_display)
+        self.timer.start(1000)
+        self.palette = self.palette()
+        self.palette.setColor(self.palette.WindowText,
+                              QtGui.QColor(255, 0, 0))
+        self.setPalette(self.palette)
+        self.displayLayout = QtGui.QGridLayout(self)
+        self.displayLayout.addWidget(self.sensordisplay, 0, 0)
+        self.setLayout(self.displayLayout)
 
-    def update_display():
+    def update_display(self):
         current_time = time.strftime('%H:%M:%S')
         self.sensordisplay.display(current_time)

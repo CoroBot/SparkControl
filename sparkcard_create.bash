@@ -63,6 +63,19 @@ echo "Creating a 'Downloads' directory"
 cd ~/
 mkdir Downloads
 
+echo "Installing Hotspot Support Softwares"
+sudo apt-get install hostapd udhcpd
+sudo cp /etc/udhcpd.conf /etc/udhcpd_bak.conf
+{
+	echo "start 192.168.42.2"
+	echo "end 192.168.42.20"
+	echo "interface wlan0"
+	echo "remaining yes"
+	echo "opt dns 8.8.8.8.4.2.2.2"
+	echo "opt subnet 255.255.255.0"
+	echo "opt router 192.168.42.1"
+	echo "opt lease 864000"
+} > /etc/udhcpd.conf
 echo "Building libsodium from source prior to installing ZMQ"
 cd ~/Downloads
 wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
